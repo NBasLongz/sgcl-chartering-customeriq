@@ -11,71 +11,99 @@ interface PaginationProps {
 }
 
 export default function Pagination({
-  currentPage, totalPages, rowsPerPage, onPageChange, onRowsPerPageChange,
+  totalLeads,
+  filteredCount,
+  currentPage,
+  totalPages,
+  rowsPerPage,
+  onPageChange,
+  onRowsPerPageChange
 }: PaginationProps) {
-  const pages = Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
-    if (totalPages <= 7) return i + 1;
-    if (currentPage <= 4) return i + 1;
-    if (currentPage >= totalPages - 3) return totalPages - 6 + i;
-    return currentPage - 3 + i;
-  });
+  const startIdx = (currentPage - 1) * rowsPerPage;
+  const from = filteredCount === 0 ? 0 : startIdx + 1;
+  const to = Math.min(startIdx + rowsPerPage, filteredCount);
 
   return (
-    <div className="flex items-center space-x-2">
-      {/* Rows per page */}
-      <select
-        value={rowsPerPage}
-        onChange={e => onRowsPerPageChange(parseInt(e.target.value))}
-        className="text-xs text-gray-500 border border-gray-200 rounded-lg px-2 py-1.5 bg-white cursor-pointer focus:outline-none"
-      >
-        <option value={8}>8 / trang</option>
-        <option value={15}>15 / trang</option>
-        <option value={50}>50 / trang</option>
-      </select>
+    <div className="bg-slate-50 px-4 py-2.5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600 shrink-0">
+      <div className="flex items-center space-x-3">
+        <span>
+          {filteredCount === 0 ? (
+            <>
+              Hiển thị <span className="font-mono font-semibold">0</span> trên tổng số{' '}
+              <span className="font-mono font-semibold">{totalLeads}</span> hồ sơ
+            </>
+          ) : (
+            <>
+              Hiển thị{' '}
+              <span className="font-mono font-semibold text-slate-800">
+                {from}–{to}
+              </span>{' '}
+              trong{' '}
+              <span className="font-mono font-semibold text-slate-800">
+                {filteredCount}
+              </span>{' '}
+              hồ sơ khớp bộ lọc (Tổng danh sách:{' '}
+              <span className="font-mono">{totalLeads}</span>)
+            </>
+          )}
+        </span>
+        <span className="text-slate-300">|</span>
+        <label className="flex items-center space-x-1.5">
+          <span className="text-slate-500">Số dòng/trang:</span>
+          <select
+            value={rowsPerPage}
+            onChange={e => onRowsPerPageChange(parseInt(e.target.value, 10))}
+            className="bg-white border border-slate-300 px-1.5 py-0.5 text-xs font-mono cursor-pointer focus:outline-none"
+          >
+            <option value={8}>8</option>
+            <option value={15}>15</option>
+            <option value={50}>50</option>
+          </select>
+        </label>
+      </div>
 
-      {/* Prev */}
-      <button
-        type="button"
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage <= 1}
-        className={`px-3 py-1.5 text-xs rounded-lg border transition cursor-pointer ${
-          currentPage <= 1
-            ? 'border-gray-100 text-gray-300 cursor-not-allowed'
-            : 'border-gray-200 text-gray-600 hover:bg-gray-50'
-        }`}
-      >
-        ‹
-      </button>
-
-      {/* Pages */}
-      {pages.map(p => (
+      <div className="flex items-center space-x-1">
         <button
-          key={p}
           type="button"
-          onClick={() => onPageChange(p)}
-          className={`w-8 h-8 text-xs rounded-lg font-medium transition cursor-pointer ${
-            p === currentPage
-              ? 'bg-[#0F3D75] text-white'
-              : 'text-gray-600 hover:bg-gray-100'
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage <= 1}
+          className={`px-2.5 py-1 border text-xs transition ${
+            currentPage <= 1
+              ? 'border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed'
+              : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer'
           }`}
         >
-          {p}
+          Trước
         </button>
-      ))}
 
-      {/* Next */}
-      <button
-        type="button"
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage >= totalPages}
-        className={`px-3 py-1.5 text-xs rounded-lg border transition cursor-pointer ${
-          currentPage >= totalPages
-            ? 'border-gray-100 text-gray-300 cursor-not-allowed'
-            : 'border-gray-200 text-gray-600 hover:bg-gray-50'
-        }`}
-      >
-        ›
-      </button>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+          <button
+            key={p}
+            type="button"
+            onClick={() => onPageChange(p)}
+            className={`px-2.5 py-1 border font-mono font-medium text-xs transition cursor-pointer ${
+              p === currentPage
+                ? 'border-[#0F3D75] bg-[#0F3D75] text-white'
+                : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-100'
+            }`}
+          >
+            {p}
+          </button>
+        ))}
+
+        <button
+          type="button"
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage >= totalPages}
+          className={`px-2.5 py-1 border text-xs transition ${
+            currentPage >= totalPages
+              ? 'border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed'
+              : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer'
+          }`}
+        >
+          Sau
+        </button>
+      </div>
     </div>
   );
 }
