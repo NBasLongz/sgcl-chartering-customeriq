@@ -129,7 +129,7 @@ export default function UploadModal({
               <button
                 type="button"
                 onClick={handleDownloadTemplate}
-                className="text-[#0F3D75] hover:underline font-medium text-sm cursor-pointer"
+                className="text-[#4299e1] hover:underline font-medium text-sm cursor-pointer"
               >
                 Tải file mẫu chuẩn (.xlsx)
               </button>
@@ -182,7 +182,7 @@ export default function UploadModal({
                   value={quickCompany}
                   onChange={e => setQuickCompany(e.target.value)}
                   placeholder="VD: Công ty CP Xi măng Nghi Sơn"
-                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#0F3D75]"
+                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#4299e1]"
                 />
               </div>
               <div>
@@ -190,7 +190,7 @@ export default function UploadModal({
                 <select
                   value={quickRole}
                   onChange={e => setQuickRole(e.target.value)}
-                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#0F3D75] cursor-pointer"
+                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#4299e1] cursor-pointer"
                 >
                   <option value="Shipper / Charterer">Shipper / Charterer</option>
                   <option value="Shipper">Shipper (Chủ hàng)</option>
@@ -206,7 +206,7 @@ export default function UploadModal({
                   value={quickSource}
                   onChange={e => setQuickSource(e.target.value)}
                   placeholder="VD: Cổng Hải quan / Hiệp hội VLA"
-                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#0F3D75]"
+                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#4299e1]"
                 />
               </div>
               <div>
@@ -216,7 +216,7 @@ export default function UploadModal({
                   value={quickCargo}
                   onChange={e => setQuickCargo(e.target.value)}
                   placeholder="VD: Clinker &amp; Đá vôi xá"
-                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#0F3D75]"
+                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#4299e1]"
                 />
               </div>
               <div>
@@ -226,7 +226,7 @@ export default function UploadModal({
                   value={quickVolume}
                   onChange={e => setQuickVolume(e.target.value)}
                   placeholder="VD: 15.000 MT / chuyến"
-                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#0F3D75]"
+                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#4299e1]"
                 />
               </div>
               <div className="sm:col-span-2">
@@ -236,7 +236,7 @@ export default function UploadModal({
                   value={quickRoute}
                   onChange={e => setQuickRoute(e.target.value)}
                   placeholder="VD: Nghi Sơn → Chittagong"
-                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#0F3D75]"
+                  className="w-full border border-slate-300 rounded px-3 py-2 bg-white text-sm focus:outline-none focus:border-[#4299e1]"
                 />
               </div>
             </div>
@@ -251,7 +251,7 @@ export default function UploadModal({
               <button
                 type="button"
                 onClick={handleQuickAdd}
-                className="bg-[#0F3D75] hover:bg-[#0A2B54] text-white font-medium px-4 py-2 rounded-md transition cursor-pointer text-sm"
+                className="bg-[#4299e1] hover:bg-[#3182ce] text-white font-medium px-4 py-2 rounded-md transition cursor-pointer text-sm shadow-xs"
               >
                 Chấm điểm &amp; Thêm vào bảng
               </button>

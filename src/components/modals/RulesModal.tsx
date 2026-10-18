@@ -140,7 +140,7 @@ export default function RulesModal({
                   step="5"
                   value={wCargo}
                   onChange={e => setWCargo(parseInt(e.target.value, 10) || 0)}
-                  className="mt-1.5 w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-bold text-base text-[#0F3D75] focus:outline-none focus:border-[#0F3D75]"
+                  className="mt-1.5 w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-bold text-base text-[#4299e1] focus:outline-none focus:border-[#4299e1]"
                 />
                 <p className="text-xs text-slate-500 mt-1 leading-snug">
                   Than, clinker, xi măng, nông sản, thép, thiết bị dự án
@@ -158,7 +158,7 @@ export default function RulesModal({
                   step="5"
                   value={wRoute}
                   onChange={e => setWRoute(parseInt(e.target.value, 10) || 0)}
-                  className="mt-1.5 w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-bold text-base text-[#0F3D75] focus:outline-none focus:border-[#0F3D75]"
+                  className="mt-1.5 w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-bold text-base text-[#4299e1] focus:outline-none focus:border-[#4299e1]"
                 />
                 <p className="text-xs text-slate-500 mt-1 leading-snug">
                   Đông Nam Á, Đông Á, Nam Á (Ấn Độ), Trung Đông, Nam Phi
@@ -176,7 +176,7 @@ export default function RulesModal({
                   step="5"
                   value={wVolume}
                   onChange={e => setWVolume(parseInt(e.target.value, 10) || 0)}
-                  className="mt-1.5 w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-bold text-base text-[#0F3D75] focus:outline-none focus:border-[#0F3D75]"
+                  className="mt-1.5 w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-bold text-base text-[#4299e1] focus:outline-none focus:border-[#4299e1]"
                 />
                 <p className="text-xs text-slate-500 mt-1 leading-snug">
                   Lô hàng tàu chuyến 3.000 &ndash; 55.000 MT hoặc CBM dự án
@@ -198,7 +198,7 @@ export default function RulesModal({
                 max="95"
                 value={thA}
                 onChange={e => setThA(parseInt(e.target.value, 10) || 0)}
-                className="w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-semibold text-sm focus:outline-none focus:border-[#0F3D75]"
+                className="w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-semibold text-sm focus:outline-none focus:border-[#4299e1]"
               />
             </div>
             <div>
@@ -212,7 +212,7 @@ export default function RulesModal({
                 max="79"
                 value={thB}
                 onChange={e => setThB(parseInt(e.target.value, 10) || 0)}
-                className="w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-semibold text-sm focus:outline-none focus:border-[#0F3D75]"
+                className="w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-semibold text-sm focus:outline-none focus:border-[#4299e1]"
               />
             </div>
           </div>
@@ -228,7 +228,7 @@ export default function RulesModal({
                 rows={2}
                 value={bulkText}
                 onChange={e => setBulkText(e.target.value)}
-                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#0F3D75]"
+                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#4299e1]"
               />
             </div>
             <div>
@@ -240,7 +240,7 @@ export default function RulesModal({
                 rows={2}
                 value={projectText}
                 onChange={e => setProjectText(e.target.value)}
-                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#0F3D75]"
+                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#4299e1]"
               />
             </div>
             <div>
@@ -252,7 +252,7 @@ export default function RulesModal({
                 rows={2}
                 value={negText}
                 onChange={e => setNegText(e.target.value)}
-                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#0F3D75]"
+                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#4299e1]"
               />
             </div>
           </div>
@@ -302,7 +302,7 @@ export default function RulesModal({
             <button
               type="button"
               onClick={handleSave}
-              className="px-4 py-2 bg-[#0F3D75] text-white font-medium rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
+              className="px-4 py-2 bg-[#4299e1] text-white font-medium rounded-md hover:bg-[#3182ce] transition cursor-pointer shadow-xs"
             >
               Áp dụng &amp; Tính lại điểm
             </button>

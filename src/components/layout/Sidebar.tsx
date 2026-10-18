@@ -9,6 +9,7 @@ interface SidebarProps {
   onSelectPreset: (preset: PresetViewType) => void;
   rules: ScoringRules;
   kpiMetrics: KpiMetrics;
+  width?: number;
   onOpenRulesModal: () => void;
 }
 
@@ -17,6 +18,7 @@ export default function Sidebar({
   onSelectPreset,
   rules,
   kpiMetrics,
+  width = 280,
   onOpenRulesModal
 }: SidebarProps) {
   const navItems: {
@@ -44,8 +46,8 @@ export default function Sidebar({
       key: 'DRY_BULK',
       label: 'Hàng rời khô (Dry Bulk)',
       count: kpiMetrics.bulkCount,
-      dotClass: 'bg-blue-600',
-      badgeClass: 'bg-blue-50 text-blue-800'
+      dotClass: 'bg-[#4299e1]',
+      badgeClass: 'bg-blue-50 text-[#3182ce] font-semibold'
     },
     {
       key: 'PROJECT',
@@ -71,7 +73,10 @@ export default function Sidebar({
   ];
 
   return (
-    <aside className="w-full lg:w-[280px] bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col justify-between shrink-0 select-none">
+    <aside
+      style={{ width: `${width}px` }}
+      className="w-full bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col justify-between shrink-0 select-none overflow-y-auto"
+    >
       <div className="p-4 space-y-5">
         {/* Navigation Categories */}
         <div>
@@ -90,7 +95,7 @@ export default function Sidebar({
                   onClick={() => onSelectPreset(item.key)}
                   className={`w-full text-left flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition cursor-pointer ${
                     isActive
-                      ? 'font-semibold text-[#0F3D75] bg-blue-50 shadow-2xs border border-blue-100'
+                      ? 'font-semibold text-[#2b6cb0] bg-[#ebf8ff] shadow-2xs border border-[#bee3f8]'
                       : 'text-slate-700 hover:bg-slate-50 border border-transparent'
                   }`}
                 >
@@ -118,7 +123,7 @@ export default function Sidebar({
             <button
               type="button"
               onClick={onOpenRulesModal}
-              className="text-xs text-[#0F3D75] hover:text-[#0A2B54] font-semibold hover:underline cursor-pointer"
+              className="text-xs text-[#4299e1] hover:text-[#3182ce] font-semibold hover:underline cursor-pointer"
             >
               Chỉnh sửa
             </button>
@@ -145,7 +150,7 @@ export default function Sidebar({
             </div>
             <div className="flex justify-between items-center py-0.5 border-b border-slate-200/50">
               <span>Ngưỡng Nhóm A / B</span>
-              <span className="font-mono font-bold text-[#0F3D75]">
+              <span className="font-mono font-bold text-[#4299e1]">
                 &ge;{rules.thresholdA} / &ge;{rules.thresholdB}
               </span>
             </div>

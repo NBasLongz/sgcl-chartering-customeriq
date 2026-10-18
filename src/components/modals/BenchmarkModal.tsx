@@ -93,7 +93,7 @@ export default function BenchmarkModal({ isOpen, onClose }: BenchmarkModalProps)
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 bg-[#0F3D75] text-white font-medium rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
+            className="px-4 py-2 bg-[#4299e1] hover:bg-[#3182ce] text-white font-medium rounded-md transition cursor-pointer shadow-xs"
           >
             Đóng
           </button>

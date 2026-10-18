@@ -111,7 +111,7 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
             </div>
             <div>
               <span className="text-slate-500 block text-xs">Phân nhóm &amp; Nghiệp vụ:</span>
-              <span className="font-semibold text-[#0F3D75] text-sm">
+              <span className="font-semibold text-[#4299e1] text-sm">
                 Nhóm {lead.group} ({lead.score}/100đ) &middot; {lead.service}
               </span>
             </div>
@@ -141,7 +141,7 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
               id="outreachLangSelect"
               value={language}
               onChange={e => setLanguage(e.target.value as 'VI' | 'EN')}
-              className="border border-slate-300 bg-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer focus:border-[#0F3D75] focus:outline-none"
+              className="border border-slate-300 bg-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer focus:border-[#4299e1] focus:outline-none"
             >
               <option value="VI">Tiếng Việt (Chủ hàng / XNK Nội địa)</option>
               <option value="EN">Tiếng Anh Quốc tế (Standard Baltic / BIMCO Style)</option>
@@ -170,7 +170,7 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
               rows={9}
               value={body}
               onChange={e => setBody(e.target.value)}
-              className="w-full bg-white border border-slate-300 rounded-md p-3.5 font-mono text-sm text-slate-800 leading-relaxed focus:border-[#0F3D75] focus:outline-none"
+              className="w-full bg-white border border-slate-300 rounded-md p-3.5 font-mono text-sm text-slate-800 leading-relaxed focus:border-[#4299e1] focus:outline-none"
             />
           </div>
 
@@ -183,7 +183,7 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
           <button
             type="button"
             onClick={handleCopy}
-            className="px-4 py-2 bg-[#0F3D75] text-white font-medium rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
+            className="px-4 py-2 bg-[#4299e1] hover:bg-[#3182ce] text-white font-medium rounded-md transition cursor-pointer shadow-xs"
           >
             Sao chép Nội dung Email
           </button>

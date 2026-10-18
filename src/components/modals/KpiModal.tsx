@@ -55,8 +55,8 @@ export default function KpiModal({ isOpen, onClose, metrics }: KpiModalProps) {
               <span className="text-xs text-slate-400">Xử lý tự động + Broker duyệt Nhóm A/B</span>
             </div>
             <div className="p-3.5 bg-blue-50/60 border border-blue-200 rounded-lg">
-              <span className="text-sm text-[#0F3D75] font-semibold block">Tỷ lệ tiết kiệm thời gian</span>
-              <span className="text-xl font-bold font-mono text-[#0F3D75] mt-1 block">
+              <span className="text-sm text-[#4299e1] font-semibold block">Tỷ lệ tiết kiệm thời gian</span>
+              <span className="text-xl font-bold font-mono text-[#4299e1] mt-1 block">
                 {metrics.savedPct}%
               </span>
               <span className="text-xs text-slate-500">Mục tiêu: Tiết kiệm &ge;80% thời gian</span>
@@ -103,10 +103,10 @@ export default function KpiModal({ isOpen, onClose, metrics }: KpiModalProps) {
                 <td className="py-2.5 px-3.5 font-sans text-slate-700 border-r border-slate-200">
                   Tổng giờ công Broker tiết kiệm được
                 </td>
-                <td className="py-2.5 px-3.5 text-right font-bold text-[#0F3D75] border-r border-slate-200">
+                <td className="py-2.5 px-3.5 text-right font-bold text-[#4299e1] border-r border-slate-200">
                   {metrics.hoursSaved} giờ
                 </td>
-                <td className="py-2.5 px-3.5 text-right font-bold text-[#0F3D75]">~24,5 giờ làm việc</td>
+                <td className="py-2.5 px-3.5 text-right font-bold text-[#4299e1]">~24,5 giờ làm việc</td>
               </tr>
             </tbody>
           </table>
@@ -129,7 +129,7 @@ export default function KpiModal({ isOpen, onClose, metrics }: KpiModalProps) {
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 bg-[#0F3D75] text-white font-medium rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
+            className="px-4 py-2 bg-[#4299e1] hover:bg-[#3182ce] text-white font-medium rounded-md transition cursor-pointer shadow-xs"
           >
             Đóng
           </button>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { EvaluatedLead, LeadStatus } from '@/lib/types/lead';
 import { SortField, SortDirection } from '@/lib/types/rules';
 
@@ -32,47 +33,173 @@ export default function LeadTable({
     'Đã loại trừ'
   ];
 
+  // Column widths state for drag-to-resize
+  const [colWidths, setColWidths] = useState({
+    id: 100,
+    company: 260,
+    cargo: 230,
+    route: 220,
+    rationale: 360,
+    score: 170,
+    status: 200
+  });
+
+  const resizingColRef = useRef<keyof typeof colWidths | null>(null);
+  const startXRef = useRef<number>(0);
+  const startWidthRef = useRef<number>(0);
+
+  const handleMouseDownResize = (colKey: keyof typeof colWidths, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    resizingColRef.current = colKey;
+    startXRef.current = e.clientX;
+    startWidthRef.current = colWidths[colKey];
+  };
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!resizingColRef.current) return;
+    const delta = e.clientX - startXRef.current;
+    const newWidth = Math.max(75, startWidthRef.current + delta);
+    const colKey = resizingColRef.current;
+    setColWidths(prev => ({
+      ...prev,
+      [colKey]: newWidth
+    }));
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    resizingColRef.current = null;
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [handleMouseMove, handleMouseUp]);
+
   const getSortIcon = (field: SortField) => {
     if (sortField !== field) return null;
     return sortDirection === 'asc' ? '↑' : '↓';
   };
 
+  const totalTableWidth = Object.values(colWidths).reduce((a, b) => a + b, 0);
+
   return (
-    <div className="flex-1 overflow-auto">
-      <table className="w-full text-left border-collapse min-w-[960px]">
-        <thead className="bg-slate-50 border-b border-slate-200 sticky top-0 z-10 text-xs font-semibold text-slate-600 uppercase tracking-wider select-none">
+    <div className="flex-1 overflow-auto bg-white select-none">
+      <table
+        className="text-left border-collapse table-fixed"
+        style={{ width: `${totalTableWidth}px`, minWidth: `${totalTableWidth}px` }}
+      >
+        <thead className="bg-slate-50 border-b border-slate-200 sticky top-0 z-20 text-xs font-semibold text-slate-600 uppercase tracking-wider shadow-2xs">
           <tr>
+            {/* Col 1: Mã KH */}
             <th
-              className="py-3 px-3.5 w-24 cursor-pointer hover:bg-slate-100 transition"
+              style={{ width: `${colWidths.id}px` }}
+              className="py-3 px-3.5 relative group hover:bg-slate-100 transition cursor-pointer"
               onClick={() => onToggleSort('id')}
+              title="Kéo mép phải để chỉnh độ rộng cột"
             >
               <div className="flex items-center space-x-1">
                 <span>Mã KH</span>
-                <span className="text-slate-700 font-bold">{getSortIcon('id')}</span>
+                <span className="text-[#4299e1] font-bold">{getSortIcon('id')}</span>
               </div>
+              <div
+                onMouseDown={(e) => handleMouseDownResize('id', e)}
+                onClick={(e) => e.stopPropagation()}
+                className="absolute right-0 top-0 bottom-0 w-2.5 cursor-col-resize hover:bg-[#4299e1] active:bg-[#3182ce] transition-colors z-30"
+              />
             </th>
+
+            {/* Col 2: Doanh nghiệp & Vai trò */}
             <th
-              className="py-3 px-3.5 cursor-pointer hover:bg-slate-100 transition"
+              style={{ width: `${colWidths.company}px` }}
+              className="py-3 px-3.5 relative group hover:bg-slate-100 transition cursor-pointer"
               onClick={() => onToggleSort('company')}
+              title="Kéo mép phải để chỉnh độ rộng cột"
             >
               <div className="flex items-center space-x-1">
                 <span>Doanh nghiệp &amp; Vai trò</span>
-                <span className="text-slate-700 font-bold">{getSortIcon('company')}</span>
+                <span className="text-[#4299e1] font-bold">{getSortIcon('company')}</span>
               </div>
+              <div
+                onMouseDown={(e) => handleMouseDownResize('company', e)}
+                onClick={(e) => e.stopPropagation()}
+                className="absolute right-0 top-0 bottom-0 w-2.5 cursor-col-resize hover:bg-[#4299e1] active:bg-[#3182ce] transition-colors z-30"
+              />
             </th>
-            <th className="py-3 px-3.5">Mặt hàng &amp; Quy mô lô</th>
-            <th className="py-3 px-3.5">Tuyến (POL &rarr; POD)</th>
-            <th className="py-3 px-3.5">Nghiệp vụ &amp; Thuyết minh Đánh giá</th>
+
+            {/* Col 3: Mặt hàng & Quy mô */}
             <th
-              className="py-3 px-3.5 w-32 text-right cursor-pointer hover:bg-slate-100 transition"
+              style={{ width: `${colWidths.cargo}px` }}
+              className="py-3 px-3.5 relative group"
+              title="Kéo mép phải để chỉnh độ rộng cột"
+            >
+              <span>Mặt hàng &amp; Quy mô lô</span>
+              <div
+                onMouseDown={(e) => handleMouseDownResize('cargo', e)}
+                className="absolute right-0 top-0 bottom-0 w-2.5 cursor-col-resize hover:bg-[#4299e1] active:bg-[#3182ce] transition-colors z-30"
+              />
+            </th>
+
+            {/* Col 4: Tuyến POL -> POD */}
+            <th
+              style={{ width: `${colWidths.route}px` }}
+              className="py-3 px-3.5 relative group"
+              title="Kéo mép phải để chỉnh độ rộng cột"
+            >
+              <span>Tuyến (POL &rarr; POD)</span>
+              <div
+                onMouseDown={(e) => handleMouseDownResize('route', e)}
+                className="absolute right-0 top-0 bottom-0 w-2.5 cursor-col-resize hover:bg-[#4299e1] active:bg-[#3182ce] transition-colors z-30"
+              />
+            </th>
+
+            {/* Col 5: Nghiệp vụ & Thuyết minh */}
+            <th
+              style={{ width: `${colWidths.rationale}px` }}
+              className="py-3 px-3.5 relative group"
+              title="Kéo mép phải để chỉnh độ rộng cột"
+            >
+              <span>Nghiệp vụ &amp; Thuyết minh Đánh giá</span>
+              <div
+                onMouseDown={(e) => handleMouseDownResize('rationale', e)}
+                className="absolute right-0 top-0 bottom-0 w-2.5 cursor-col-resize hover:bg-[#4299e1] active:bg-[#3182ce] transition-colors z-30"
+              />
+            </th>
+
+            {/* Col 6: Điểm / Phân hạng */}
+            <th
+              style={{ width: `${colWidths.score}px` }}
+              className="py-3 px-3.5 text-right relative group hover:bg-slate-100 transition cursor-pointer"
               onClick={() => onToggleSort('score')}
+              title="Kéo mép phải để chỉnh độ rộng cột"
             >
               <div className="flex items-center justify-end space-x-1">
                 <span>Điểm / Phân hạng</span>
-                <span className="text-slate-700 font-bold">{getSortIcon('score')}</span>
+                <span className="text-[#4299e1] font-bold">{getSortIcon('score')}</span>
               </div>
+              <div
+                onMouseDown={(e) => handleMouseDownResize('score', e)}
+                onClick={(e) => e.stopPropagation()}
+                className="absolute right-0 top-0 bottom-0 w-2.5 cursor-col-resize hover:bg-[#4299e1] active:bg-[#3182ce] transition-colors z-30"
+              />
             </th>
-            <th className="py-3 px-3.5 w-48 text-left">Trạng thái thẩm định</th>
+
+            {/* Col 7: Trạng thái thẩm định */}
+            <th
+              style={{ width: `${colWidths.status}px` }}
+              className="py-3 px-3.5 text-left relative group"
+              title="Kéo mép phải để chỉnh độ rộng cột"
+            >
+              <span>Trạng thái thẩm định</span>
+              <div
+                onMouseDown={(e) => handleMouseDownResize('status', e)}
+                className="absolute right-0 top-0 bottom-0 w-2.5 cursor-col-resize hover:bg-[#4299e1] active:bg-[#3182ce] transition-colors z-30"
+              />
+            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-slate-200 text-sm">
@@ -83,7 +210,7 @@ export default function LeadTable({
                 <button
                   type="button"
                   onClick={onResetFilters}
-                  className="ml-2 text-[#0F3D75] underline font-semibold cursor-pointer"
+                  className="ml-2 text-[#4299e1] hover:text-[#3182ce] underline font-semibold cursor-pointer"
                 >
                   Xóa bộ lọc
                 </button>
@@ -98,7 +225,7 @@ export default function LeadTable({
                 ? 'bg-slate-50/70 text-slate-500 hover:bg-slate-100/70'
                 : 'bg-white hover:bg-slate-50/80';
               if (isSelected) {
-                rowBg = 'bg-blue-50/80 border-l-4 border-l-[#0F3D75]';
+                rowBg = 'bg-blue-50/70 border-l-4 border-l-[#4299e1]';
               }
 
               let groupBadge = (
@@ -113,14 +240,14 @@ export default function LeadTable({
                     Nhóm A
                   </span>
                 );
-                scoreClass = 'text-emerald-800 font-bold';
+                scoreClass = 'text-emerald-700 font-bold';
               } else if (item.group === 'B') {
                 groupBadge = (
                   <span className="inline-block px-3 py-1 text-xs font-bold rounded-md bg-amber-50 text-amber-800 border border-amber-300">
                     Nhóm B
                   </span>
                 );
-                scoreClass = 'text-amber-800 font-bold';
+                scoreClass = 'text-amber-700 font-bold';
               }
 
               let serviceLabel = (
@@ -128,11 +255,11 @@ export default function LeadTable({
               );
               if (item.service === 'Dry Bulk Chartering') {
                 serviceLabel = (
-                  <span className="text-xs font-bold text-[#0F3D75]">Dry Bulk Chartering</span>
+                  <span className="text-xs font-bold text-[#4299e1]">Dry Bulk Chartering</span>
                 );
               } else if (item.service === 'Project / Breakbulk') {
                 serviceLabel = (
-                  <span className="text-xs font-bold text-indigo-800">Project / Breakbulk</span>
+                  <span className="text-xs font-bold text-indigo-700">Project / Breakbulk</span>
                 );
               }
 
@@ -154,41 +281,52 @@ export default function LeadTable({
                   className={`${rowBg} transition cursor-pointer`}
                 >
                   <td
+                    style={{ width: `${colWidths.id}px` }}
                     className={`py-3.5 px-3.5 font-mono tabular-nums text-sm ${
                       isExcluded ? 'text-slate-400' : 'text-slate-700 font-bold'
-                    } align-top`}
+                    } align-top truncate`}
                   >
                     {item.id}
                   </td>
-                  <td className="py-3.5 px-3.5 align-top">
+                  <td
+                    style={{ width: `${colWidths.company}px` }}
+                    className="py-3.5 px-3.5 align-top"
+                  >
                     <div
-                      className={`text-base font-bold ${isExcluded ? 'text-slate-600' : 'text-slate-900'}`}
+                      className={`text-base font-bold truncate ${isExcluded ? 'text-slate-600' : 'text-slate-900'}`}
                     >
                       {item.company}
                     </div>
-                    <div className="text-xs text-slate-500 mt-1">
+                    <div className="text-xs text-slate-500 mt-1 truncate">
                       {item.role} &middot; Nguồn: {item.source}
                     </div>
                   </td>
-                  <td className="py-3.5 px-3.5 align-top">
-                    <div className={isExcluded ? 'text-slate-500' : 'text-sm font-semibold text-slate-800'}>
+                  <td
+                    style={{ width: `${colWidths.cargo}px` }}
+                    className="py-3.5 px-3.5 align-top"
+                  >
+                    <div className={`truncate ${isExcluded ? 'text-slate-500' : 'text-sm font-semibold text-slate-800'}`}>
                       {item.cargo}
                     </div>
-                    <div className="text-xs font-mono tabular-nums text-slate-500 mt-1 font-medium">
+                    <div className="text-xs font-mono tabular-nums text-slate-500 mt-1 font-medium truncate">
                       {item.volume}
                     </div>
                   </td>
                   <td
-                    className={`py-3.5 px-3.5 align-top text-sm ${
+                    style={{ width: `${colWidths.route}px` }}
+                    className={`py-3.5 px-3.5 align-top text-sm truncate ${
                       isExcluded ? 'text-slate-500' : 'font-semibold text-slate-800'
                     }`}
                   >
                     {item.route}
                   </td>
-                  <td className="py-3.5 px-3.5 align-top max-w-sm">
+                  <td
+                    style={{ width: `${colWidths.rationale}px` }}
+                    className="py-3.5 px-3.5 align-top"
+                  >
                     <div className="flex items-center justify-between">
                       {serviceLabel}
-                      <span className="text-xs text-[#0F3D75] hover:underline font-bold">
+                      <span className="text-xs text-[#4299e1] hover:underline font-bold shrink-0 ml-2">
                         Chi tiết &rarr;
                       </span>
                     </div>
@@ -199,7 +337,10 @@ export default function LeadTable({
                       {item.reason}
                     </p>
                   </td>
-                  <td className="py-3.5 px-3.5 align-top text-right">
+                  <td
+                    style={{ width: `${colWidths.score}px` }}
+                    className="py-3.5 px-3.5 align-top text-right"
+                  >
                     <div className="flex items-center justify-end space-x-2">
                       <span className={`font-mono tabular-nums text-base ${scoreClass}`}>
                         {String(item.score).padStart(2, '0')}
@@ -207,10 +348,11 @@ export default function LeadTable({
                       {groupBadge}
                     </div>
                     {item.manualGroup !== 'AUTO' && (
-                      <span className="text-xs text-blue-700 font-medium block mt-1">Đã ghi đè</span>
+                      <span className="text-xs text-[#4299e1] font-medium block mt-1">Đã ghi đè</span>
                     )}
                   </td>
                   <td
+                    style={{ width: `${colWidths.status}px` }}
                     className="py-3.5 px-3.5 align-top"
                     onClick={e => e.stopPropagation()}
                   >

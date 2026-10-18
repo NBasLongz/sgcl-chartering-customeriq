@@ -7,10 +7,10 @@ interface HeaderProps {
 
 export default function Header({ onOpenKpiModal, onOpenBenchmarkModal }: HeaderProps) {
   return (
-    <header className="bg-white border-b border-slate-200 px-4 lg:px-6 h-14 flex items-center justify-between sticky top-0 z-30 shrink-0">
+    <header className="bg-white border-b border-slate-200 px-4 lg:px-6 h-14 flex items-center justify-between sticky top-0 z-40 shrink-0">
       <div className="flex items-center space-x-3">
         <div className="flex items-center space-x-2.5">
-          <span className="bg-[#0F3D75] text-white font-bold px-2.5 py-1 text-xs rounded tracking-wider uppercase">
+          <span className="bg-[#4299e1] text-white font-bold px-2.5 py-1 text-xs rounded tracking-wider uppercase shadow-xs">
             SGCL
           </span>
           <span className="text-sm font-semibold text-slate-900 tracking-tight">
@@ -27,7 +27,7 @@ export default function Header({ onOpenKpiModal, onOpenBenchmarkModal }: HeaderP
         <button
           type="button"
           onClick={onOpenKpiModal}
-          className="text-slate-700 hover:text-[#0F3D75] font-medium underline decoration-slate-300 underline-offset-4 transition hidden md:inline-block cursor-pointer"
+          className="text-slate-700 hover:text-[#4299e1] font-medium underline decoration-slate-300 underline-offset-4 transition hidden md:inline-block cursor-pointer"
           title="Xem báo cáo đo lường thời gian tiết kiệm, độ chính xác và kiểm soát rủi ro"
         >
           Báo cáo Hiệu suất &amp; KPIs
@@ -36,7 +36,7 @@ export default function Header({ onOpenKpiModal, onOpenBenchmarkModal }: HeaderP
         <button
           type="button"
           onClick={onOpenBenchmarkModal}
-          className="text-slate-600 hover:text-[#0F3D75] underline decoration-slate-300 underline-offset-4 transition hidden sm:inline-block cursor-pointer"
+          className="text-slate-600 hover:text-[#4299e1] underline decoration-slate-300 underline-offset-4 transition hidden sm:inline-block cursor-pointer"
           title="Xem bảng đối chiếu số liệu thực tế năm 2024 - 2025 của phòng Chartering"
         >
           Số liệu Thực tế 2024–2025
@@ -44,7 +44,7 @@ export default function Header({ onOpenKpiModal, onOpenBenchmarkModal }: HeaderP
         <span className="text-slate-300 hidden sm:inline">|</span>
         <div className="flex items-center space-x-2 text-slate-700">
           <span
-            className="w-2.5 h-2.5 rounded-full bg-emerald-600"
+            className="w-2.5 h-2.5 rounded-full bg-emerald-500"
             aria-hidden="true"
             title="Hệ thống vận hành sẵn sàng"
           ></span>

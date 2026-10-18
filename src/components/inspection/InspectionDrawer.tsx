@@ -6,6 +6,7 @@ import { ScoringRules } from '@/lib/types/rules';
 interface InspectionDrawerProps {
   lead: EvaluatedLead | null;
   rules: ScoringRules;
+  width?: number;
   onClose: () => void;
   onOpenOutreachModal: () => void;
   onUpdateStatus: (id: string, status: LeadStatus) => void;
@@ -17,6 +18,7 @@ interface InspectionDrawerProps {
 export default function InspectionDrawer({
   lead,
   rules,
+  width = 480,
   onClose,
   onOpenOutreachModal,
   onUpdateStatus,
@@ -46,7 +48,8 @@ export default function InspectionDrawer({
   return (
     <aside
       aria-label="Chi tiết hồ sơ khách hàng và thẩm định nghiệp vụ"
-      className="w-full lg:w-[480px] bg-white border-l border-slate-200 flex flex-col justify-between shrink-0 overflow-y-auto animate-fade-in"
+      style={{ width: `${width}px` }}
+      className="w-full bg-white border-l border-slate-200 flex flex-col justify-between shrink-0 overflow-y-auto animate-fade-in shadow-lg z-20"
     >
       <div className="p-5 space-y-5">
         {/* Header */}
@@ -81,7 +84,7 @@ export default function InspectionDrawer({
         {isSuitable && (
           <div className="bg-blue-50/70 border border-blue-200 rounded-lg p-3.5 flex items-center justify-between text-sm">
             <div>
-              <span className="font-bold text-[#0F3D75] block text-sm">
+              <span className="font-bold text-[#4299e1] block text-sm">
                 Tiếp cận Khách hàng
               </span>
               <span className="text-xs text-slate-600">
@@ -91,7 +94,7 @@ export default function InspectionDrawer({
             <button
               type="button"
               onClick={onOpenOutreachModal}
-              className="px-3.5 py-2 bg-[#0F3D75] text-white font-semibold text-xs rounded-md hover:bg-[#0A2B54] shrink-0 transition cursor-pointer shadow-xs"
+              className="px-3.5 py-2 bg-[#4299e1] hover:bg-[#3182ce] text-white font-semibold text-xs rounded-md shrink-0 transition cursor-pointer shadow-xs"
             >
               Soạn Email Tiếp cận
             </button>
@@ -104,7 +107,7 @@ export default function InspectionDrawer({
             <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
               1. Bóc tách Điểm số Đa chiều
             </span>
-            <span className="font-mono text-base font-bold text-[#0F3D75]">
+            <span className="font-mono text-base font-bold text-[#4299e1]">
               {lead.score}/100
             </span>
           </div>
@@ -162,7 +165,7 @@ export default function InspectionDrawer({
             </div>
             <div>
               <span className="text-slate-500 block text-xs">Phân hệ dịch vụ:</span>
-              <span className="font-bold text-[#0F3D75]">{lead.service}</span>
+              <span className="font-bold text-[#4299e1]">{lead.service}</span>
             </div>
             <div className="col-span-2 pt-2 border-t border-slate-200">
               <span className="text-slate-500 block text-xs">Đội tàu SGCL tương thích:</span>
@@ -197,7 +200,7 @@ export default function InspectionDrawer({
             <select
               value={lead.status}
               onChange={e => onUpdateStatus(lead.id, e.target.value as LeadStatus)}
-              className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm font-medium text-slate-800 focus:border-[#0F3D75] focus:outline-none cursor-pointer"
+              className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm font-medium text-slate-800 focus:border-[#4299e1] focus:outline-none cursor-pointer"
             >
               {statuses.map(st => (
                 <option key={st} value={st}>
@@ -212,7 +215,7 @@ export default function InspectionDrawer({
             <select
               value={lead.manualGroup || 'AUTO'}
               onChange={e => onOverrideGroup(lead.id, e.target.value as 'AUTO' | LeadGroup)}
-              className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm text-slate-800 focus:border-[#0F3D75] focus:outline-none cursor-pointer"
+              className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm text-slate-800 focus:border-[#4299e1] focus:outline-none cursor-pointer"
             >
               <option value="AUTO">Theo kết quả chấm điểm tự động</option>
               <option value="A">Ghi đè sang Nhóm A (Mục tiêu cốt lõi)</option>
@@ -230,7 +233,7 @@ export default function InspectionDrawer({
               value={lead.note || ''}
               onChange={e => onUpdateNote(lead.id, e.target.value)}
               placeholder="Nhập ghi chú thẩm định của Broker..."
-              className="w-full bg-white border border-slate-300 rounded-md p-3 text-sm text-slate-800 focus:border-[#0F3D75] focus:outline-none"
+              className="w-full bg-white border border-slate-300 rounded-md p-3 text-sm text-slate-800 focus:border-[#4299e1] focus:outline-none"
             />
           </div>
         </div>
@@ -247,7 +250,7 @@ export default function InspectionDrawer({
         <button
           type="button"
           onClick={onClose}
-          className="px-4 py-2 bg-[#0F3D75] text-white font-semibold text-sm rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
+          className="px-4 py-2 bg-[#4299e1] hover:bg-[#3182ce] text-white font-semibold text-sm rounded-md transition cursor-pointer shadow-xs"
         >
           Hoàn tất kiểm tra
         </button>

@@ -50,7 +50,7 @@ export default function EmptyState({ onImportExcel, onLoadSample, onShowToast }:
       {/* Workspace Header */}
       <div className="border-b border-slate-200 pb-4 mb-6">
         <div className="flex items-center space-x-2 text-sm text-slate-500 mb-1.5">
-          <span className="font-semibold text-[#0F3D75]">SGCL Chartering</span>
+          <span className="font-semibold text-[#4299e1]">SGCL Chartering</span>
           <span>/</span>
           <span>Phân hệ Sàng lọc &amp; Đánh giá Khách hàng</span>
           <span>/</span>
@@ -73,8 +73,8 @@ export default function EmptyState({ onImportExcel, onLoadSample, onShowToast }:
           onClick={() => document.getElementById('fileInputMain')?.click()}
           className={`border-2 border-dashed rounded-lg p-8 text-center transition-all cursor-pointer ${
             isDragging
-              ? 'border-[#0F3D75] bg-blue-50/50'
-              : 'border-slate-300 hover:border-[#0F3D75] hover:bg-slate-50/60'
+              ? 'border-[#4299e1] bg-blue-50/50'
+              : 'border-slate-300 hover:border-[#4299e1] hover:bg-slate-50/60'
           }`}
         >
           <input
@@ -87,13 +87,13 @@ export default function EmptyState({ onImportExcel, onLoadSample, onShowToast }:
 
           {isLoading ? (
             <div className="py-6 flex flex-col items-center space-y-3">
-              <div className="w-7 h-7 border-2 border-slate-300 border-t-[#0F3D75] rounded-full animate-spin" />
+              <div className="w-7 h-7 border-2 border-slate-300 border-t-[#4299e1] rounded-full animate-spin" />
               <p className="text-sm font-medium text-slate-700">Đang phân tích cấu trúc dữ liệu tệp...</p>
             </div>
           ) : (
             <div className="py-2">
               <p className="text-base font-semibold text-slate-900 mb-1.5">
-                Kéo thả tệp dữ liệu vào đây hoặc <span className="text-[#0F3D75] underline">nhấp để chọn từ máy tính</span>
+                Kéo thả tệp dữ liệu vào đây hoặc <span className="text-[#4299e1] underline">nhấp để chọn từ máy tính</span>
               </p>
               <p className="text-sm text-slate-500 mb-3">
                 Hỗ trợ định dạng: <span className="font-semibold text-slate-700">.xlsx</span>, <span className="font-semibold text-slate-700">.xls</span>, <span className="font-semibold text-slate-700">.csv</span>
@@ -117,7 +117,7 @@ export default function EmptyState({ onImportExcel, onLoadSample, onShowToast }:
           <button
             type="button"
             onClick={onLoadSample}
-            className="py-3 px-5 bg-[#0F3D75] hover:bg-[#0A2B54] text-white text-sm font-semibold rounded-lg shadow-xs transition cursor-pointer text-center"
+            className="py-3 px-5 bg-[#4299e1] hover:bg-[#3182ce] text-white text-sm font-semibold rounded-lg shadow-xs transition cursor-pointer text-center"
           >
             Nạp 12 hồ sơ mẫu thực tế (Thử nghiệm nhanh)
           </button>
@@ -170,7 +170,7 @@ export default function EmptyState({ onImportExcel, onLoadSample, onShowToast }:
                 <td className="py-2.5 px-3.5 border-r border-slate-200">
                   Than đá, Clinker, Xi măng xá, Nông sản (ngô/đậu nành/gạo), Phân bón, Quặng, Thép, Thiết bị dự án OOG.
                 </td>
-                <td className="py-2.5 px-3.5 font-medium text-[#0F3D75]">
+                <td className="py-2.5 px-3.5 font-medium text-[#4299e1]">
                   Dry Bulk / Project Cargo
                 </td>
               </tr>
