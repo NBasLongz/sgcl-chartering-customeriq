@@ -7,15 +7,17 @@ import { KpiMetrics } from '../types/kpi';
 import { DEFAULT_RAW_LEADS } from '../data/default-leads';
 import { DEFAULT_RULES } from '../data/default-rules';
 import { evaluateLead } from '../engine/scoring';
-import { loadSavedLeads, saveLeadsToStorage, loadSavedRules, saveRulesToStorage } from '../engine/storage';
+import { saveLeadsToStorage, loadSavedRules, saveRulesToStorage } from '../engine/storage';
 import { parseExcelFile, exportQualifiedLeadsToExcel } from '../engine/excel';
 import { sanitizeSensitiveText } from '../engine/data-masking';
 
 export function useLeadsManager() {
-  const [rawLeads, setRawLeads] = useState<RawLead[]>(DEFAULT_RAW_LEADS);
+  // Start with empty list — user must upload or choose sample
+  const [rawLeads, setRawLeads] = useState<RawLead[]>([]);
   const [rules, setRules] = useState<ScoringRules>(DEFAULT_RULES);
   const [engineMode, setEngineMode] = useState<EngineMode>('CONTEXT_MATRIX');
   const [activePreset, setActivePreset] = useState<PresetViewType>('ALL');
+  const [isLoadingAi, setIsLoadingAi] = useState(false);
 
   // Filters & Sorting
   const [searchQuery, setSearchQuery] = useState('');
@@ -44,18 +46,15 @@ export function useLeadsManager() {
     setToastMessage(msg);
   }, []);
 
-  // Hydrate from localStorage on client mount
+  // Hydrate from localStorage on client mount (rules only - leads start empty)
   useEffect(() => {
     const savedRules = loadSavedRules();
-    const savedLeads = loadSavedLeads();
     setRules(savedRules);
-    setRawLeads(savedLeads);
     setIsHydrated(true);
   }, []);
 
   // AI Cloud Evaluated Leads state
   const [aiEvaluatedLeads, setAiEvaluatedLeads] = useState<EvaluatedLead[] | null>(null);
-  const [isLoadingAi, setIsLoadingAi] = useState(false);
 
   // Recalculate evaluated leads whenever rawLeads, rules, or engineMode changes
   const evaluatedLeads = useMemo<EvaluatedLead[]>(() => {
@@ -310,11 +309,20 @@ export function useLeadsManager() {
 
   const handleResetSampleData = useCallback(() => {
     setRawLeads(DEFAULT_RAW_LEADS);
+    setAiEvaluatedLeads(null);
     setDatasetSource(`Bộ dữ liệu mẫu kiểm thử (${DEFAULT_RAW_LEADS.length} doanh nghiệp)`);
     setSelectedLeadId(null);
     setCurrentPage(1);
     setActiveModal(null);
-    showToast('Đã khôi phục 12 hồ sơ khách hàng mẫu ban đầu');
+    showToast('Đã nạp 12 hồ sơ khách hàng mẫu kiểm thử');
+  }, [showToast]);
+
+  const handleClearData = useCallback(() => {
+    setRawLeads([]);
+    setAiEvaluatedLeads(null);
+    setSelectedLeadId(null);
+    setCurrentPage(1);
+    showToast('Đã xóa dữ liệu, quay về trang nạp danh sách ban đầu');
   }, [showToast]);
 
   const handleSaveRules = useCallback((newRules: ScoringRules) => {
@@ -367,6 +375,7 @@ export function useLeadsManager() {
     rules,
     engineMode,
     setEngineMode: handleEngineModeChange,
+    isLoadingAi,
     activePreset,
     applyPresetView: handleApplyPresetView,
     searchQuery,
@@ -399,6 +408,7 @@ export function useLeadsManager() {
     importExcel: handleImportExcel,
     exportQualified: handleExportQualified,
     resetSampleData: handleResetSampleData,
+    clearData: handleClearData,
     saveRules: handleSaveRules
   };
 }
