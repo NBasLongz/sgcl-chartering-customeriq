@@ -30,17 +30,17 @@ export default function FilterBar({
   onEngineModeChange
 }: FilterBarProps) {
   return (
-    <div className="px-4 lg:px-6 py-3 bg-white border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-sm">
-      <div className="flex flex-wrap items-center gap-2.5 flex-1">
+    <div className="px-4 lg:px-6 py-2 bg-white border-t border-slate-100 flex flex-wrap items-center justify-between gap-2.5 text-xs">
+      <div className="flex flex-wrap items-center gap-2 flex-1">
         {/* Search input */}
-        <div className="relative w-full sm:w-72">
+        <div className="relative w-full sm:w-64">
           <input
             type="search"
             value={searchQuery}
             onChange={e => onSearchChange(e.target.value)}
             aria-label="Tìm kiếm doanh nghiệp, mã KH, mặt hàng, tuyến cảng"
             placeholder="Tìm tên DN, mã KH, mặt hàng, cảng..."
-            className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-[#4299e1] focus:ring-1 focus:ring-[#4299e1] focus:outline-none transition shadow-2xs"
+            className="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 focus:border-[#4299e1] focus:ring-1 focus:ring-[#4299e1] focus:outline-none transition shadow-2xs h-8"
           />
         </div>
 
@@ -49,7 +49,7 @@ export default function FilterBar({
           value={groupFilter}
           onChange={e => onGroupFilterChange(e.target.value)}
           aria-label="Lọc theo phân nhóm khách hàng"
-          className="bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-700 cursor-pointer focus:border-[#4299e1] focus:ring-1 focus:ring-[#4299e1] focus:outline-none transition shadow-2xs"
+          className="bg-white border border-slate-300 rounded-md px-2.5 py-1 text-xs text-slate-700 cursor-pointer focus:border-[#4299e1] focus:ring-1 focus:ring-[#4299e1] focus:outline-none transition shadow-2xs h-8 font-medium"
         >
           <option value="ALL">Phân nhóm: Tất cả</option>
           <option value="SUITABLE">Nhóm đạt (A &amp; B)</option>
@@ -63,7 +63,7 @@ export default function FilterBar({
           value={serviceFilter}
           onChange={e => onServiceFilterChange(e.target.value)}
           aria-label="Lọc theo nghiệp vụ khai thác"
-          className="bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-700 cursor-pointer focus:border-[#4299e1] focus:ring-1 focus:ring-[#4299e1] focus:outline-none transition shadow-2xs"
+          className="bg-white border border-slate-300 rounded-md px-2.5 py-1 text-xs text-slate-700 cursor-pointer focus:border-[#4299e1] focus:ring-1 focus:ring-[#4299e1] focus:outline-none transition shadow-2xs h-8 font-medium"
         >
           <option value="ALL">Nghiệp vụ: Tất cả</option>
           <option value="Dry Bulk Chartering">Dry Bulk Chartering</option>
@@ -76,7 +76,7 @@ export default function FilterBar({
           value={statusFilter}
           onChange={e => onStatusFilterChange(e.target.value)}
           aria-label="Lọc theo trạng thái thẩm định của Broker"
-          className="bg-white border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-700 cursor-pointer focus:border-[#4299e1] focus:ring-1 focus:ring-[#4299e1] focus:outline-none transition shadow-2xs"
+          className="bg-white border border-slate-300 rounded-md px-2.5 py-1 text-xs text-slate-700 cursor-pointer focus:border-[#4299e1] focus:ring-1 focus:ring-[#4299e1] focus:outline-none transition shadow-2xs h-8 font-medium"
         >
           <option value="ALL">Trạng thái: Tất cả</option>
           <option value="Đã duyệt tiếp cận">Đã duyệt tiếp cận</option>
@@ -89,7 +89,7 @@ export default function FilterBar({
         <button
           type="button"
           onClick={onResetFilters}
-          className="px-2.5 py-2 text-slate-500 hover:text-[#4299e1] text-sm underline decoration-slate-300 cursor-pointer font-medium transition"
+          className="px-2 py-1 text-slate-500 hover:text-[#4299e1] text-xs underline decoration-slate-300 cursor-pointer font-medium transition"
         >
           Đặt lại bộ lọc
         </button>
@@ -97,14 +97,14 @@ export default function FilterBar({
 
       {/* Classification Engine Mode Selector */}
       <div className="flex items-center space-x-2">
-        <label htmlFor="methodSelect" className="text-sm font-semibold text-slate-700 whitespace-nowrap">
+        <label htmlFor="methodSelect" className="text-xs font-semibold text-slate-700 whitespace-nowrap">
           Cơ chế phân loại:
         </label>
         <select
           id="methodSelect"
           value={engineMode}
           onChange={e => onEngineModeChange(e.target.value as EngineMode)}
-          className="bg-white border border-slate-300 rounded-md px-3 py-2 text-sm font-semibold text-slate-800 cursor-pointer focus:border-[#4299e1] focus:ring-1 focus:ring-[#4299e1] focus:outline-none transition shadow-2xs"
+          className="bg-white border border-slate-300 rounded-md px-2.5 py-1 text-xs font-semibold text-slate-800 cursor-pointer focus:border-[#4299e1] focus:ring-1 focus:ring-[#4299e1] focus:outline-none transition shadow-2xs h-8"
         >
           <option value="CONTEXT_MATRIX">Phân tích Ngữ cảnh Đa chiều &amp; XAI (Khuyên dùng)</option>
           <option value="CLOUD_AI">Google Gemini AI Cloud (AI Studio API)</option>
