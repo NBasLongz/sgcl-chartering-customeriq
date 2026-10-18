@@ -99,7 +99,7 @@ export default function UploadModal({
       aria-labelledby="uploadModalTitle"
       className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4 animate-fade-in"
     >
-      <div className="bg-white border border-slate-300 rounded-xl shadow-xl max-w-xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+      <div className="bg-white border border-slate-300 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
         <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div>
             <h3 id="uploadModalTitle" className="text-base font-bold text-slate-900">

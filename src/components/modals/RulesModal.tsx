@@ -92,8 +92,8 @@ export default function RulesModal({
       aria-labelledby="rulesModalTitle"
       className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4 animate-fade-in"
     >
-      <div className="bg-white border border-slate-300 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
-        <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+      <div className="bg-white border border-slate-300 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+        <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div>
             <h3 id="rulesModalTitle" className="text-base font-bold text-slate-900">
               Cấu hình Bộ tiêu chí, Trọng số &amp; Bảo mật Dữ liệu
@@ -112,7 +112,7 @@ export default function RulesModal({
           </button>
         </div>
 
-        <div className="p-5 space-y-4 text-sm overflow-y-auto">
+        <div className="p-6 space-y-4 text-sm overflow-y-auto">
           {/* Weights configuration */}
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -127,7 +127,7 @@ export default function RulesModal({
                 Tổng: {currentSum}%
               </span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
               <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
                 <label htmlFor="inputWeightCargo" className="font-medium text-slate-700 block text-sm">
                   Độ khớp Mặt hàng (%)
@@ -186,7 +186,7 @@ export default function RulesModal({
           </div>
 
           {/* Group Thresholds */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2 border-t border-slate-200">
             <div>
               <label htmlFor="inputThresholdA" className="font-semibold text-slate-700 block mb-1 text-sm">
                 Ngưỡng điểm tối thiểu Nhóm A (Mục tiêu cốt lõi):
@@ -218,31 +218,34 @@ export default function RulesModal({
           </div>
 
           {/* Editable Keyword Dictionaries */}
-          <div className="space-y-3 pt-2 border-t border-slate-200">
-            <div>
-              <label htmlFor="inputBulkKeywords" className="block font-semibold text-slate-700 mb-1 text-sm">
-                Từ khóa Mặt hàng Rời khô (Dry Bulk Chartering):
-              </label>
-              <textarea
-                id="inputBulkKeywords"
-                rows={2}
-                value={bulkText}
-                onChange={e => setBulkText(e.target.value)}
-                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#4299e1]"
-              />
+          <div className="space-y-3.5 pt-2 border-t border-slate-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              <div>
+                <label htmlFor="inputBulkKeywords" className="block font-semibold text-slate-700 mb-1 text-sm">
+                  Từ khóa Mặt hàng Rời khô (Dry Bulk Chartering):
+                </label>
+                <textarea
+                  id="inputBulkKeywords"
+                  rows={3}
+                  value={bulkText}
+                  onChange={e => setBulkText(e.target.value)}
+                  className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-xs focus:outline-none focus:border-[#4299e1] leading-relaxed"
+                />
+              </div>
+              <div>
+                <label htmlFor="inputProjectKeywords" className="block font-semibold text-slate-700 mb-1 text-sm">
+                  Từ khóa Hàng Dự án &amp; Breakbulk (Project Services):
+                </label>
+                <textarea
+                  id="inputProjectKeywords"
+                  rows={3}
+                  value={projectText}
+                  onChange={e => setProjectText(e.target.value)}
+                  className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-xs focus:outline-none focus:border-[#4299e1] leading-relaxed"
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="inputProjectKeywords" className="block font-semibold text-slate-700 mb-1 text-sm">
-                Từ khóa Hàng Dự án &amp; Breakbulk (Project Services):
-              </label>
-              <textarea
-                id="inputProjectKeywords"
-                rows={2}
-                value={projectText}
-                onChange={e => setProjectText(e.target.value)}
-                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#4299e1]"
-              />
-            </div>
+
             <div>
               <label htmlFor="inputNegativeKeywords" className="block font-semibold text-red-800 mb-1 text-sm">
                 Từ khóa Loại trừ (Negative Gate - Chuyển thẳng vào Nhóm C):
@@ -252,7 +255,7 @@ export default function RulesModal({
                 rows={2}
                 value={negText}
                 onChange={e => setNegText(e.target.value)}
-                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#4299e1]"
+                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-xs focus:outline-none focus:border-[#4299e1] leading-relaxed"
               />
             </div>
           </div>
