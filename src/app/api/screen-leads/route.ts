@@ -59,8 +59,8 @@ Hãy phân tích và trả về đúng định dạng JSON:
   ]
 }`;
 
-        const geminiRes = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`,
+        let geminiRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiApiKey}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -72,6 +72,23 @@ Hãy phân tích và trả về đúng định dạng JSON:
             })
           }
         );
+
+        if (!geminiRes.ok) {
+          // Fallback to gemini-1.5-flash if 2.5 is not available
+          geminiRes = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: {
+                  responseMimeType: 'application/json'
+                }
+              })
+            }
+          );
+        }
 
         if (geminiRes.ok) {
           const geminiData = await geminiRes.json();

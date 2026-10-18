@@ -53,10 +53,17 @@ export function useLeadsManager() {
     setIsHydrated(true);
   }, []);
 
+  // AI Cloud Evaluated Leads state
+  const [aiEvaluatedLeads, setAiEvaluatedLeads] = useState<EvaluatedLead[] | null>(null);
+  const [isLoadingAi, setIsLoadingAi] = useState(false);
+
   // Recalculate evaluated leads whenever rawLeads, rules, or engineMode changes
   const evaluatedLeads = useMemo<EvaluatedLead[]>(() => {
+    if (engineMode === 'CLOUD_AI' && aiEvaluatedLeads) {
+      return aiEvaluatedLeads;
+    }
     return rawLeads.map(lead => evaluateLead(lead, rules, engineMode));
-  }, [rawLeads, rules, engineMode]);
+  }, [rawLeads, rules, engineMode, aiEvaluatedLeads]);
 
   // Save to localStorage when hydrated & leads/rules change
   useEffect(() => {
@@ -316,14 +323,35 @@ export function useLeadsManager() {
     showToast('Đã áp dụng bộ trọng số mới và tính lại điểm cho toàn bộ danh sách');
   }, [showToast]);
 
-  const handleEngineModeChange = useCallback((mode: EngineMode) => {
+  const handleEngineModeChange = useCallback(async (mode: EngineMode) => {
     setEngineMode(mode);
     if (mode === 'NAIVE_KEYWORD') {
       showToast('Chế độ Quét từ khóa đơn: Hồ sơ SG-2509 bị phân loại nhầm vào Nhóm A');
-    } else {
+    } else if (mode === 'CONTEXT_MATRIX') {
       showToast('Đã bật Phân tích Ngữ cảnh Đa chiều: Loại trừ chính xác hàng LCL/đóng gói lẻ');
+    } else if (mode === 'CLOUD_AI') {
+      showToast('Đang kết nối Google Gemini Flash API để chấm điểm & phân tích XAI...');
+      setIsLoadingAi(true);
+      try {
+        const res = await fetch('/api/screen-leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ leads: rawLeads, rules, useGemini: true })
+        });
+        const data = await res.json();
+        if (data.success && data.leads) {
+          setAiEvaluatedLeads(data.leads);
+          showToast(`Gemini AI (${data.mode === 'GEMINI_AI' ? 'Cloud API' : 'Fallback Engine'}) đã hoàn tất phân tích!`);
+        } else {
+          showToast('Không thể gọi Gemini API, giữ nguyên ma trận ngữ cảnh.');
+        }
+      } catch (err) {
+        showToast('Lỗi kết nối Gemini API: ' + (err instanceof Error ? err.message : String(err)));
+      } finally {
+        setIsLoadingAi(false);
+      }
     }
-  }, [showToast]);
+  }, [rawLeads, rules, showToast]);
 
   return {
     leads: evaluatedLeads,

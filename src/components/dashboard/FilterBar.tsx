@@ -107,6 +107,7 @@ export default function FilterBar({
           className="bg-white border border-slate-300 px-2.5 py-1.5 text-xs font-medium text-slate-800 cursor-pointer focus:border-[#0F3D75] focus:outline-none"
         >
           <option value="CONTEXT_MATRIX">Phân tích Ngữ cảnh Đa chiều &amp; XAI (Khuyên dùng)</option>
+          <option value="CLOUD_AI">Google Gemini AI Cloud (AI Studio API)</option>
           <option value="NAIVE_KEYWORD">Quét từ khóa đơn thuần (Đối chứng lỗi bắt nhầm)</option>
         </select>
       </div>
