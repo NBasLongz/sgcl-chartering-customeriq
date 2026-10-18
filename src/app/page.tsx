@@ -69,9 +69,10 @@ export default function Home() {
 
   const hasLeads = totalCount > 0;
 
-  // ─── RESIZABLE PANELS STATE ───
+  // ─── RESIZABLE & COLLAPSIBLE PANELS STATE ───
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [sidebarWidth, setSidebarWidth] = useState(280);
-  const [drawerWidth, setDrawerWidth] = useState(480);
+  const [drawerWidth, setDrawerWidth] = useState(520);
   const [isMetricsCollapsed, setIsMetricsCollapsed] = useState(false);
 
   // Dragging refs
@@ -166,90 +167,95 @@ export default function Home() {
         /* ─── MAIN APPLICATION SHELL KHI ĐÃ CÓ DATA ─── */
         <div className="flex-1 flex flex-col lg:flex-row min-h-0 overflow-hidden relative">
           {/* LEFT NAVIGATION & ACTIVE SCORING RULES */}
-          <Sidebar
-            activePreset={activePreset}
-            onSelectPreset={applyPresetView}
-            rules={rules}
-            kpiMetrics={kpiMetrics}
-            width={sidebarWidth}
-            onOpenRulesModal={() => setActiveModal('rules')}
-          />
+          {isSidebarOpen && (
+            <>
+              <Sidebar
+                activePreset={activePreset}
+                onSelectPreset={applyPresetView}
+                rules={rules}
+                kpiMetrics={kpiMetrics}
+                width={sidebarWidth}
+                onOpenRulesModal={() => setActiveModal('rules')}
+              />
 
-          {/* DRAGGABLE DIVIDER: KÉO TRÁI PHẢI GIỮA SIDEBAR VÀ WORKSPACE */}
-          <div
-            onMouseDown={handleSidebarMouseDown}
-            className="hidden lg:flex w-1.5 hover:w-2 bg-slate-200 hover:bg-[#4299e1] active:bg-[#3182ce] cursor-col-resize transition-all shrink-0 z-30 items-center justify-center group"
-            title="Kéo mép trái/phải để điều chỉnh độ rộng Menu danh mục"
-          >
-            <div className="w-0.5 h-8 bg-slate-400 group-hover:bg-white rounded-full transition-colors" />
-          </div>
+              {/* DRAGGABLE DIVIDER: KÉO TRÁI PHẢI GIỮA SIDEBAR VÀ WORKSPACE */}
+              <div
+                onMouseDown={handleSidebarMouseDown}
+                className="hidden lg:flex w-1.5 hover:w-2 bg-slate-200 hover:bg-[#4299e1] active:bg-[#3182ce] cursor-col-resize transition-all shrink-0 z-30 items-center justify-center group"
+                title="Kéo mép trái/phải để điều chỉnh độ rộng Menu danh mục"
+              >
+                <div className="w-0.5 h-8 bg-slate-400 group-hover:bg-white rounded-full transition-colors" />
+              </div>
+            </>
+          )}
 
           {/* MAIN OPERATIONAL WORKSPACE */}
           <main className="flex-1 flex flex-col min-w-0 bg-[#F8FAFC] overflow-hidden">
             {/* ─── CỐ ĐỊNH THANH ĐIỀU KHIỂN & BỘ LỌC (STICKY TOP CONTROL PANEL) ─── */}
-            <div className="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-xs shrink-0 select-none">
+            <div className="sticky top-0 z-20 bg-white border-b border-slate-200 shadow-xs shrink-0 select-none">
               {/* 1. WORKSPACE HEADER & PRIMARY ACTIONS */}
               <div className="px-4 lg:px-6 py-2 border-b border-slate-100">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-                  <div>
-                    <div className="flex items-center space-x-2">
-                      <h2 className="text-base font-bold text-slate-900">
-                        Bảng Sàng lọc &amp; Phân hạng Khách hàng Tiềm năng
-                      </h2>
-                      <span className="text-[11px] font-semibold px-2 py-0.5 bg-slate-100 text-slate-700 border border-slate-200 rounded">
-                        {datasetSource}
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-0.5 truncate max-w-2xl">
-                      Bóc tách thực thể hàng hải (Mặt hàng, Quy mô lô, Cảng POL/POD), chấm điểm đa chiều và sinh thuyết minh lý giải phục vụ thẩm định của Broker.
-                    </p>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <div className="flex items-center space-x-2.5">
+                    <button
+                      type="button"
+                      onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                      title={isSidebarOpen ? "Thu gọn thanh danh mục" : "Mở rộng thanh danh mục"}
+                      className="px-2 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded text-xs font-semibold flex items-center space-x-1 cursor-pointer transition shadow-2xs"
+                    >
+                      <span>{isSidebarOpen ? '◀ Danh mục' : '▶ Danh mục'}</span>
+                    </button>
+                    <h2 className="text-base font-bold text-slate-900 tracking-tight">
+                      Sàng lọc &amp; Phân hạng Khách hàng
+                    </h2>
+                    <span className="text-[11px] font-semibold px-2 py-0.5 bg-slate-100 text-slate-700 border border-slate-200 rounded">
+                      {datasetSource}
+                    </span>
                   </div>
 
                   {/* Primary Operational Actions */}
                   <div className="flex flex-wrap items-center gap-2 text-xs font-medium shrink-0">
                     <button
                       type="button"
+                      onClick={exportQualified}
+                      className="px-3.5 py-1.5 bg-[#4299e1] hover:bg-[#3182ce] active:bg-[#2b6cb0] text-white rounded-md transition cursor-pointer font-semibold shadow-xs text-xs flex items-center space-x-1"
+                    >
+                      <span>Xuất DS đạt tiêu chí ({kpiMetrics.suitableCount})</span>
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => setActiveModal('upload')}
                       className="px-2.5 py-1.5 bg-white border border-slate-300 rounded-md text-slate-700 hover:border-[#4299e1] hover:text-[#4299e1] active:bg-slate-100 transition cursor-pointer text-xs font-medium shadow-2xs"
                     >
-                      <span>Nạp thêm tệp (.xlsx / .csv)</span>
+                      <span>Nạp tệp (.xlsx)</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setActiveModal('rules')}
                       className="px-2.5 py-1.5 bg-white border border-slate-300 rounded-md text-slate-700 hover:border-[#4299e1] hover:text-[#4299e1] active:bg-slate-100 transition cursor-pointer text-xs font-medium shadow-2xs"
                     >
-                      <span>Cấu hình tiêu chí &amp; trọng số</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={exportQualified}
-                      className="px-3 py-1.5 bg-[#4299e1] hover:bg-[#3182ce] active:bg-[#2b6cb0] text-white rounded-md transition cursor-pointer font-semibold shadow-xs text-xs"
-                    >
-                      <span>Xuất DS đạt tiêu chí ({kpiMetrics.suitableCount})</span>
+                      <span>Cấu hình tiêu chí ⚙️</span>
                     </button>
                     <button
                       type="button"
                       onClick={clearData}
                       title="Xóa danh sách hiện tại và quay về màn hình nạp file ban đầu"
-                      className="px-2.5 py-1.5 bg-slate-100 border border-slate-300 rounded-md text-slate-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 transition cursor-pointer flex items-center space-x-1 text-xs shadow-2xs"
+                      className="px-2 py-1.5 text-slate-500 hover:text-red-700 transition cursor-pointer text-xs"
                     >
-                      <span>Quay về trang nạp</span>
+                      <span>Quay về trang nạp ↺</span>
                     </button>
                   </div>
                 </div>
 
-                {/* 2. COMPACT SUMMARY METRICS BAR (CÓ THỂ THU GỌN / MỞ RỘNG) */}
-                {!isMetricsCollapsed && (
-                  <div className="mt-2">
-                    <MetricsBar
-                      metrics={kpiMetrics}
-                      onOpenKpiModal={() => setActiveModal('kpi')}
-                      groupFilter={groupFilter}
-                      onGroupFilterChange={setGroupFilter}
-                    />
-                  </div>
-                )}
+                {/* 2. COMPACT SUMMARY METRICS BAR (BIỂU ĐỒ TRỰC QUAN HOÁ DỮ LIỆU) */}
+                <div className="mt-1.5">
+                  <MetricsBar
+                    metrics={kpiMetrics}
+                    onOpenKpiModal={() => setActiveModal('kpi')}
+                    groupFilter={groupFilter}
+                    onGroupFilterChange={setGroupFilter}
+                  />
+                </div>
               </div>
 
               {/* 3. FILTER & ENGINE MODE BAR */}
@@ -274,79 +280,45 @@ export default function Home() {
               />
             </div>
 
-            {/* DRAGGABLE HORIZONTAL RESIZER: KÉO LÊN XUỐNG GIỮA THANH ĐIỀU KHIỂN VÀ BẢNG */}
-            <div
-              onMouseDown={handleVerticalMouseDown}
-              className="h-2 bg-slate-100 hover:bg-[#4299e1]/20 active:bg-[#4299e1]/40 border-b border-slate-200 cursor-row-resize flex items-center justify-between px-4 transition-colors group shrink-0 select-none"
-              title="Kéo lên/xuống để điều chỉnh độ cao hoặc nhấp để thu gọn/mở rộng thanh số liệu"
-            >
-              <div className="flex items-center space-x-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-[#4299e1]" />
-                <span className="text-[11px] text-slate-400 group-hover:text-slate-700 font-medium">
-                  {isMetricsCollapsed ? 'Thanh số liệu đang thu gọn' : 'Kéo lên/xuống để tùy chỉnh không gian bảng'}
-                </span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setIsMetricsCollapsed(!isMetricsCollapsed)}
-                  className="text-[11px] font-semibold text-[#4299e1] hover:text-[#3182ce] underline cursor-pointer"
-                >
-                  {isMetricsCollapsed ? '▼ Mở rộng thẻ số liệu' : '▲ Thu gọn thẻ số liệu'}
-                </button>
-                <div className="w-10 h-1 bg-slate-300 group-hover:bg-[#4299e1] rounded-full transition-colors" />
-              </div>
-            </div>
+            {/* MAIN TABLE CONTAINER (100% FULL WIDTH!) */}
+            <div className="flex-1 flex flex-col min-w-0 bg-white overflow-hidden relative">
+              <LeadTable
+                leads={paginatedLeads}
+                selectedLeadId={selectedLeadId}
+                onSelectLead={setSelectedLeadId}
+                onUpdateStatus={updateStatus}
+                onResetFilters={resetFilters}
+                sortField={sortField}
+                sortDirection={sortDirection}
+                onToggleSort={toggleSort}
+              />
 
-            {/* MAIN TABLE + RIGHT INSPECTION PANEL */}
-            <div className="flex-1 flex min-h-0 overflow-hidden relative">
-              {/* CUSTOMER DATA TABLE CONTAINER */}
-              <div className="flex-1 flex flex-col min-w-0 bg-white overflow-hidden">
-                <LeadTable
-                  leads={paginatedLeads}
-                  selectedLeadId={selectedLeadId}
-                  onSelectLead={setSelectedLeadId}
-                  onUpdateStatus={updateStatus}
-                  onResetFilters={resetFilters}
-                  sortField={sortField}
-                  sortDirection={sortDirection}
-                  onToggleSort={toggleSort}
-                />
+              <Pagination
+                totalLeads={totalCount}
+                filteredCount={filteredCount}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                rowsPerPage={rowsPerPage}
+                onPageChange={setCurrentPage}
+                onRowsPerPageChange={setRowsPerPage}
+              />
 
-                <Pagination
-                  totalLeads={totalCount}
-                  filteredCount={filteredCount}
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  rowsPerPage={rowsPerPage}
-                  onPageChange={setCurrentPage}
-                  onRowsPerPageChange={setRowsPerPage}
-                />
-              </div>
-
-              {/* DRAGGABLE DIVIDER: KÉO TRÁI PHẢI GIỮA BẢNG VÀ DRAWER */}
+              {/* SLIDE-OVER INSPECTION DRAWER */}
               {selectedLead && (
-                <div
-                  onMouseDown={handleDrawerMouseDown}
-                  className="w-1.5 hover:w-2 bg-slate-200 hover:bg-[#4299e1] active:bg-[#3182ce] cursor-col-resize transition-all shrink-0 z-30 flex items-center justify-center group"
-                  title="Kéo mép trái để điều chỉnh độ rộng khung xem chi tiết"
-                >
-                  <div className="w-0.5 h-10 bg-slate-400 group-hover:bg-white rounded-full transition-colors" />
+                <div className="absolute inset-y-0 right-0 z-30 flex max-w-full shadow-2xl animate-fade-in">
+                  <InspectionDrawer
+                    lead={selectedLead}
+                    rules={rules}
+                    width={Math.min(drawerWidth, 540)}
+                    onClose={() => setSelectedLeadId(null)}
+                    onOpenOutreachModal={() => setActiveModal('outreach')}
+                    onUpdateStatus={updateStatus}
+                    onOverrideGroup={overrideGroup}
+                    onUpdateNote={updateNote}
+                    onDeleteLead={deleteLead}
+                  />
                 </div>
               )}
-
-              {/* RIGHT INSPECTION DRAWER */}
-              <InspectionDrawer
-                lead={selectedLead}
-                rules={rules}
-                width={drawerWidth}
-                onClose={() => setSelectedLeadId(null)}
-                onOpenOutreachModal={() => setActiveModal('outreach')}
-                onUpdateStatus={updateStatus}
-                onOverrideGroup={overrideGroup}
-                onUpdateNote={updateNote}
-                onDeleteLead={deleteLead}
-              />
             </div>
           </main>
         </div>
