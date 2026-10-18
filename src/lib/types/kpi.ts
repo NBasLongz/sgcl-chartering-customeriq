@@ -3,7 +3,9 @@ export interface KpiMetrics {
   suitableCount: number;
   suitablePct: string;
   groupACount: number;
+  groupAPct: string;
   groupBCount: number;
+  groupBPct: string;
   groupCCount: number;
   groupCPct: string;
   bulkCount: number;

@@ -90,6 +90,8 @@ export function useLeadsManager() {
     const projectCount = evaluatedLeads.filter(l => l.group !== 'C' && l.service === 'Project / Breakbulk').length;
     const needsReviewCount = evaluatedLeads.filter(l => l.status === 'Cần Broker kiểm tra lại').length;
 
+    const groupAPct = total > 0 ? ((groupACount / total) * 100).toFixed(1).replace('.', ',') : '0,0';
+    const groupBPct = total > 0 ? ((groupBCount / total) * 100).toFixed(1).replace('.', ',') : '0,0';
     const suitablePct = total > 0 ? ((suitableCount / total) * 100).toFixed(1).replace('.', ',') : '0,0';
     const groupCPct = total > 0 ? ((groupCCount / total) * 100).toFixed(1).replace('.', ',') : '0,0';
 
@@ -104,7 +106,9 @@ export function useLeadsManager() {
       suitableCount,
       suitablePct,
       groupACount,
+      groupAPct,
       groupBCount,
+      groupBPct,
       groupCCount,
       groupCPct,
       bulkCount,

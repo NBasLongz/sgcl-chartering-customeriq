@@ -16,16 +16,19 @@ export default function MetricsBar({
   groupFilter = 'ALL',
   onGroupFilterChange
 }: MetricsBarProps) {
-  // Safe percentages for distribution bar
-  const total = metrics.total || 1;
-  const pctA = Math.round((metrics.groupACount / total) * 100);
-  const pctB = Math.round((metrics.groupBCount / total) * 100);
-  const pctC = Math.max(0, 100 - pctA - pctB);
+  // Safe numeric calculations
+  const total = metrics?.total && metrics.total > 0 ? metrics.total : 1;
+  const numSuitablePct = (metrics?.suitableCount || 0) > 0 ? ((metrics.suitableCount / total) * 100) : 0;
+  const numPctA = (metrics?.groupACount || 0) > 0 ? ((metrics.groupACount / total) * 100) : 0;
+  const numPctB = (metrics?.groupBCount || 0) > 0 ? ((metrics.groupBCount / total) * 100) : 0;
+  const numPctC = Math.max(0, 100 - numPctA - numPctB);
 
-  // SVG mini-donut parameters (r = 15, circumference = 2 * PI * 15 ≈ 94.25)
+  // SVG mini-donut parameters (r = 15, circumference = 2 * PI * 15 ≈ 94.2477)
   const radius = 15;
   const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (Math.min(100, Math.max(0, metrics.suitablePct)) / 100) * circumference;
+  const clampedPct = Math.min(100, Math.max(0, numSuitablePct));
+  const calcOffset = circumference - (clampedPct / 100) * circumference;
+  const safeStrokeDashoffset = Number.isFinite(calcOffset) ? calcOffset : circumference;
 
   return (
     <div className="bg-white border border-slate-200/90 rounded-lg px-3.5 py-1.5 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs select-none">
@@ -56,13 +59,13 @@ export default function MetricsBar({
               className="stroke-emerald-500 transition-all duration-500 ease-out"
               strokeWidth="3.5"
               strokeDasharray={circumference}
-              strokeDashoffset={strokeDashoffset}
+              strokeDashoffset={safeStrokeDashoffset}
               strokeLinecap="round"
               fill="transparent"
             />
           </svg>
           <span className="absolute text-[10px] font-mono font-bold text-emerald-800">
-            {metrics.suitablePct}%
+            {metrics?.suitablePct || '0,0'}%
           </span>
         </div>
         <div>
@@ -73,7 +76,7 @@ export default function MetricsBar({
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           </div>
           <div className="text-xs font-mono text-emerald-700">
-            <strong className="text-sm font-bold">{metrics.suitableCount}</strong> / {metrics.total} hồ sơ
+            <strong className="text-sm font-bold">{metrics?.suitableCount || 0}</strong> / {metrics?.total || 0} hồ sơ
           </div>
         </div>
       </div>
@@ -85,25 +88,25 @@ export default function MetricsBar({
             <span>Biểu đồ Phân bổ Nhóm Khách hàng</span>
             <span className="text-[10px] text-slate-400 font-normal">(Nhấp từng màu để lọc)</span>
           </span>
-          <span className="text-slate-400 font-mono text-[10px]">Tổng {metrics.total} DN (100%)</span>
+          <span className="text-slate-400 font-mono text-[10px]">Tổng {metrics?.total || 0} DN (100%)</span>
         </div>
 
         {/* Stacked Progress Bar */}
         <div className="w-full h-2.5 bg-slate-100 rounded-full flex overflow-hidden p-0.5 border border-slate-200 shadow-inner">
           {/* Group A segment */}
-          {metrics.groupACount > 0 && (
+          {(metrics?.groupACount || 0) > 0 && (
             <div
               onClick={() => onGroupFilterChange?.(groupFilter === 'A' ? 'ALL' : 'A')}
-              style={{ width: `${Math.max(pctA, 4)}%` }}
+              style={{ width: `${Math.max(numPctA, 4)}%` }}
               title={`Nhóm A (Mục tiêu cốt lõi): ${metrics.groupACount} hồ sơ (${metrics.groupAPct}%) - Bấm để lọc`}
               className="h-full bg-[#4299e1] hover:brightness-110 transition-all cursor-pointer rounded-l-full"
             />
           )}
           {/* Group B segment */}
-          {metrics.groupBCount > 0 && (
+          {(metrics?.groupBCount || 0) > 0 && (
             <div
               onClick={() => onGroupFilterChange?.(groupFilter === 'B' ? 'ALL' : 'B')}
-              style={{ width: `${Math.max(pctB, 4)}%` }}
+              style={{ width: `${Math.max(numPctB, 4)}%` }}
               title={`Nhóm B (Tiềm năng theo dõi): ${metrics.groupBCount} hồ sơ (${metrics.groupBPct}%) - Bấm để lọc`}
               className={`h-full bg-amber-400 hover:brightness-110 transition-all cursor-pointer ${
                 metrics.groupACount === 0 ? 'rounded-l-full' : ''
@@ -111,10 +114,10 @@ export default function MetricsBar({
             />
           )}
           {/* Group C segment */}
-          {metrics.groupCCount > 0 && (
+          {(metrics?.groupCCount || 0) > 0 && (
             <div
               onClick={() => onGroupFilterChange?.(groupFilter === 'C' ? 'ALL' : 'C')}
-              style={{ width: `${pctC}%` }}
+              style={{ width: `${numPctC}%` }}
               title={`Nhóm C (Loại trừ): ${metrics.groupCCount} hồ sơ (${metrics.groupCPct}%) - Bấm để lọc`}
               className="h-full bg-slate-300 hover:brightness-95 transition-all cursor-pointer rounded-r-full"
             />
@@ -134,8 +137,8 @@ export default function MetricsBar({
           >
             <span className="w-2 h-2 rounded-full bg-[#4299e1] shrink-0" />
             <span>Nhóm A (Cốt lõi):</span>
-            <span className="font-mono font-bold text-[#4299e1]">{metrics.groupACount}</span>
-            <span className="text-[10px] text-slate-400">({metrics.groupAPct}%)</span>
+            <span className="font-mono font-bold text-[#4299e1]">{metrics?.groupACount || 0}</span>
+            <span className="text-[10px] text-slate-400">({metrics?.groupAPct || '0,0'}%)</span>
           </button>
 
           <button
@@ -149,8 +152,8 @@ export default function MetricsBar({
           >
             <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
             <span>Nhóm B (Tiềm năng):</span>
-            <span className="font-mono font-bold text-amber-800">{metrics.groupBCount}</span>
-            <span className="text-[10px] text-slate-400">({metrics.groupBPct}%)</span>
+            <span className="font-mono font-bold text-amber-800">{metrics?.groupBCount || 0}</span>
+            <span className="text-[10px] text-slate-400">({metrics?.groupBPct || '0,0'}%)</span>
           </button>
 
           <button
@@ -164,8 +167,8 @@ export default function MetricsBar({
           >
             <span className="w-2 h-2 rounded-full bg-slate-300 shrink-0" />
             <span>Nhóm C (Loại trừ):</span>
-            <span className="font-mono font-bold text-slate-600">{metrics.groupCCount}</span>
-            <span className="text-[10px] text-slate-400">({metrics.groupCPct}%)</span>
+            <span className="font-mono font-bold text-slate-600">{metrics?.groupCCount || 0}</span>
+            <span className="text-[10px] text-slate-400">({metrics?.groupCPct || '0,0'}%)</span>
           </button>
         </div>
       </div>
@@ -177,7 +180,7 @@ export default function MetricsBar({
             Tiết kiệm Broker
           </span>
           <div className="flex items-baseline space-x-1">
-            <span className="text-sm font-bold font-mono text-[#4299e1]">~{metrics.savedMinutes}</span>
+            <span className="text-sm font-bold font-mono text-[#4299e1]">~{metrics?.savedMinutes || 0}</span>
             <span className="text-[11px] text-slate-500">phút</span>
           </div>
         </div>
