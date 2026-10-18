@@ -245,6 +245,8 @@ export default function Home() {
                     <MetricsBar
                       metrics={kpiMetrics}
                       onOpenKpiModal={() => setActiveModal('kpi')}
+                      groupFilter={groupFilter}
+                      onGroupFilterChange={setGroupFilter}
                     />
                   </div>
                 )}
