@@ -42,41 +42,40 @@ export default function EmptyState({ onImportExcel, onLoadSample, onShowToast }:
 
   const handleDownloadTemplate = () => {
     downloadSampleExcelTemplate();
-    onShowToast('Đã tải file mẫu về máy');
+    onShowToast('Đã tải xuống biểu mẫu Excel: SGCL_File_Mau_Khach_Hang_Tho.xlsx');
   };
 
   return (
-    <div className="flex-1 flex items-center justify-center p-8 animate-fade-up">
-      <div className="w-full max-w-2xl">
-
-        {/* Logo & Title */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center space-x-3 mb-6">
-            <span className="bg-[#0F3D75] text-white font-black px-3 py-1.5 text-sm tracking-widest rounded">
-              SGCL
-            </span>
-            <span className="text-gray-400 text-xl font-light">|</span>
-            <span className="text-gray-700 font-semibold text-lg">CustomerIQ</span>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-3">
-            Hệ thống Sàng lọc Khách hàng
-          </h1>
-          <p className="text-gray-500 text-base max-w-md mx-auto leading-relaxed">
-            Nạp danh sách doanh nghiệp để tự động chấm điểm, phân loại và sinh thuyết minh lý giải nghiệp vụ.
-          </p>
+    <div className="w-full max-w-5xl mx-auto py-8 px-4">
+      {/* Workspace Header */}
+      <div className="border-b border-slate-200 pb-4 mb-6">
+        <div className="flex items-center space-x-2 text-xs text-slate-500 mb-1">
+          <span className="font-semibold text-[#0F3D75]">SGCL Chartering</span>
+          <span>/</span>
+          <span>Phân hệ Sàng lọc &amp; Đánh giá Khách hàng</span>
+          <span>/</span>
+          <span className="text-slate-700 font-medium">Tiếp nhận dữ liệu (Lead Ingestion)</span>
         </div>
+        <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+          Không gian Tiếp nhận &amp; Thẩm định Khách hàng Tiềm năng
+        </h2>
+        <p className="text-xs text-slate-600 mt-1">
+          Nạp danh sách doanh nghiệp từ tệp Excel / CSV để hệ thống tự động bóc tách thực thể hàng hải, chấm điểm đa chiều và phân hạng theo tiêu chuẩn đội tàu SGCL.
+        </p>
+      </div>
 
-        {/* Drop Zone */}
+      {/* Main Ingestion & Data Actions Card */}
+      <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs mb-6">
         <div
           onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
-          className={`relative border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-200 cursor-pointer
-            ${isDragging
-              ? 'border-[#0F3D75] bg-blue-50 scale-[1.01]'
-              : 'border-gray-200 bg-white hover:border-[#0F3D75] hover:bg-blue-50/30'
-            }`}
           onClick={() => document.getElementById('fileInputMain')?.click()}
+          className={`border-2 border-dashed rounded-lg p-8 text-center transition-all cursor-pointer ${
+            isDragging
+              ? 'border-[#0F3D75] bg-blue-50/50'
+              : 'border-slate-300 hover:border-[#0F3D75] hover:bg-slate-50/60'
+          }`}
         >
           <input
             id="fileInputMain"
@@ -87,89 +86,166 @@ export default function EmptyState({ onImportExcel, onLoadSample, onShowToast }:
           />
 
           {isLoading ? (
-            <div className="flex flex-col items-center space-y-4">
-              <div className="w-10 h-10 border-3 border-gray-200 border-t-[#0F3D75] rounded-full animate-spin" />
-              <p className="text-gray-500 font-medium">Đang đọc và phân tích dữ liệu...</p>
+            <div className="py-6 flex flex-col items-center space-y-3">
+              <div className="w-7 h-7 border-2 border-slate-300 border-t-[#0F3D75] rounded-full animate-spin" />
+              <p className="text-xs font-medium text-slate-700">Đang phân tích cấu trúc dữ liệu tệp...</p>
             </div>
           ) : (
-            <>
-              {/* Upload Icon */}
-              <div className={`mx-auto w-16 h-16 rounded-2xl flex items-center justify-center mb-5 transition-colors
-                ${isDragging ? 'bg-[#0F3D75]' : 'bg-gray-100'}`}>
-                <svg className={`w-7 h-7 ${isDragging ? 'text-white' : 'text-gray-400'}`}
-                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+            <div className="py-2">
+              <p className="text-sm font-semibold text-slate-900 mb-1">
+                Kéo thả tệp dữ liệu vào đây hoặc <span className="text-[#0F3D75] underline">nhấp để chọn từ máy tính</span>
+              </p>
+              <p className="text-xs text-slate-500 mb-3">
+                Hỗ trợ định dạng: <span className="font-semibold text-slate-700">.xlsx</span>, <span className="font-semibold text-slate-700">.xls</span>, <span className="font-semibold text-slate-700">.csv</span>
+              </p>
+              <div className="inline-flex items-center space-x-2 text-xs text-slate-600 bg-slate-100/80 px-3 py-1 rounded-md border border-slate-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                <span>Tự động nhận diện cột tiếng Việt &amp; tiếng Anh (Mã KH, Doanh nghiệp, Mặt hàng, Tuyến cảng, Quy mô)</span>
               </div>
-
-              <p className="text-gray-900 font-semibold text-lg mb-2">
-                {isDragging ? 'Thả file vào đây' : 'Kéo thả file hoặc bấm để chọn'}
-              </p>
-              <p className="text-gray-400 text-sm mb-1">
-                Hỗ trợ định dạng <span className="font-medium text-gray-600">.xlsx</span>, <span className="font-medium text-gray-600">.xls</span>, <span className="font-medium text-gray-600">.csv</span>
-              </p>
-              <p className="text-gray-400 text-sm">
-                Tự động nhận diện cột: Tên công ty, Mặt hàng, Tuyến, Sản lượng...
-              </p>
-            </>
+            </div>
           )}
         </div>
 
-        {/* Error */}
         {error && (
-          <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm animate-fade-in">
-            <strong>Lỗi:</strong> {error}
+          <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-800">
+            <strong className="font-semibold">Lỗi nạp tệp:</strong> {error}
           </div>
         )}
 
-        {/* Divider */}
-        <div className="flex items-center space-x-4 my-6">
-          <div className="flex-1 h-px bg-gray-200" />
-          <span className="text-gray-400 text-sm font-medium">hoặc</span>
-          <div className="flex-1 h-px bg-gray-200" />
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3">
+        {/* Action Row */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
           <button
             type="button"
             onClick={onLoadSample}
-            className="flex-1 flex items-center justify-center space-x-2 py-3.5 px-6 bg-[#0F3D75] text-white font-semibold rounded-xl hover:bg-[#0A2B54] transition-colors text-sm cursor-pointer"
+            className="py-2.5 px-4 bg-[#0F3D75] hover:bg-[#0A2B54] text-white text-xs font-semibold rounded-lg shadow-xs transition cursor-pointer text-center"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
-            <span>Dùng 12 hồ sơ mẫu kiểm thử</span>
+            Nạp 12 hồ sơ mẫu thực tế (Thử nghiệm nhanh)
           </button>
 
           <button
             type="button"
             onClick={handleDownloadTemplate}
-            className="flex-1 flex items-center justify-center space-x-2 py-3.5 px-6 bg-white border border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 hover:border-gray-300 transition-colors text-sm cursor-pointer"
+            className="py-2.5 px-4 bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 text-xs font-semibold rounded-lg shadow-xs transition cursor-pointer text-center"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-            <span>Tải file mẫu Excel (.xlsx)</span>
+            Tải biểu mẫu Excel chuẩn (.xlsx)
           </button>
         </div>
+      </div>
 
-        {/* Feature Hints */}
-        <div className="mt-10 grid grid-cols-3 gap-4">
-          {[
-            { icon: '🎯', label: 'Chấm điểm 3 chiều', desc: 'Hàng · Tuyến · Cỡ tàu' },
-            { icon: '🔍', label: 'Thuyết minh XAI', desc: '4 bước lý giải nghiệp vụ' },
-            { icon: '📧', label: 'Soạn Email', desc: 'Chào cước chuẩn Baltic' },
-          ].map(f => (
-            <div key={f.label} className="bg-white border border-gray-100 rounded-xl p-4 text-center">
-              <div className="text-2xl mb-2">{f.icon}</div>
-              <p className="font-semibold text-gray-800 text-sm">{f.label}</p>
-              <p className="text-gray-400 text-xs mt-0.5">{f.desc}</p>
-            </div>
-          ))}
+      {/* Enterprise Maritime Qualification Specifications */}
+      <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-xs text-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div>
+            <h3 className="font-bold text-slate-900 text-sm">
+              Quy chuẩn Thẩm định Đội tàu SGCL &amp; Phân hạng Khách hàng
+            </h3>
+            <p className="text-slate-500 text-xs mt-0.5">
+              Căn cứ đối soát nhu cầu vận chuyển của khách hàng với năng lực cung ứng của phòng Chartering
+            </p>
+          </div>
+          <span className="px-2.5 py-1 text-xs font-semibold bg-slate-100 text-slate-700 rounded-md border border-slate-200">
+            Nghiệp vụ Môi giới SGCL
+          </span>
+        </div>
+
+        {/* Specification Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse border border-slate-200 text-xs">
+            <thead className="bg-slate-50 text-slate-700 font-semibold border-b border-slate-200">
+              <tr>
+                <th className="py-2 px-3 border-r border-slate-200 w-44">Trụ cột đánh giá</th>
+                <th className="py-2 px-3 border-r border-slate-200 w-24 text-center">Trọng số</th>
+                <th className="py-2 px-3 border-r border-slate-200">Định mức nghiệp vụ đội tàu SGCL</th>
+                <th className="py-2 px-3 w-40">Phân hệ dịch vụ</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200 text-slate-600">
+              <tr>
+                <td className="py-2 px-3 font-semibold text-slate-800 border-r border-slate-200">
+                  1. Mặt hàng (Commodity)
+                </td>
+                <td className="py-2 px-3 text-center font-mono font-bold text-slate-800 border-r border-slate-200">
+                  40%
+                </td>
+                <td className="py-2 px-3 border-r border-slate-200">
+                  Than đá, Clinker, Xi măng xá, Nông sản (ngô/đậu nành/gạo), Phân bón, Quặng, Thép, Thiết bị dự án OOG.
+                </td>
+                <td className="py-2 px-3 font-medium text-[#0F3D75]">
+                  Dry Bulk / Project Cargo
+                </td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 font-semibold text-slate-800 border-r border-slate-200">
+                  2. Tuyến &amp; Cảng (POL &rarr; POD)
+                </td>
+                <td className="py-2 px-3 text-center font-mono font-bold text-slate-800 border-r border-slate-200">
+                  35%
+                </td>
+                <td className="py-2 px-3 border-r border-slate-200">
+                  Nội địa VN, Đông Nam Á (Indonesia, Malaysia, Thái Lan), Đông Á (Trung Quốc, Nhật Bản, Hàn Quốc), Ấn Độ, Trung Đông.
+                </td>
+                <td className="py-2 px-3 font-medium text-slate-700">
+                  Mạng lưới &gt;90 chủ tàu
+                </td>
+              </tr>
+              <tr>
+                <td className="py-2 px-3 font-semibold text-slate-800 border-r border-slate-200">
+                  3. Quy mô lô &amp; Cỡ tàu (Fit)
+                </td>
+                <td className="py-2 px-3 text-center font-mono font-bold text-slate-800 border-r border-slate-200">
+                  25%
+                </td>
+                <td className="py-2 px-3 border-r border-slate-200">
+                  Small Handy đến Supramax (3.000 &ndash; 55.000 DWT), tàu bách hóa đa năng (MPP) có cẩu tàu phù hợp hàng nặng.
+                </td>
+                <td className="py-2 px-3 font-medium text-slate-700">
+                  Tàu rời &amp; Tàu bách hóa
+                </td>
+              </tr>
+              <tr className="bg-red-50/50">
+                <td className="py-2 px-3 font-semibold text-red-900 border-r border-slate-200">
+                  Cổng loại trừ (Negative Gate)
+                </td>
+                <td className="py-2 px-3 text-center font-mono font-bold text-red-700 border-r border-slate-200">
+                  -100đ
+                </td>
+                <td className="py-2 px-3 border-r border-slate-200 text-red-900">
+                  Hàng container lẻ (LCL), bưu kiện thương mại điện tử, container lạnh (Reefer), xăng dầu hóa chất lỏng (Tanker).
+                </td>
+                <td className="py-2 px-3 font-semibold text-red-800">
+                  Nhóm C (Loại trừ tự động)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* Group Badges Legend */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+          <div className="p-3 bg-emerald-50/50 border border-emerald-200 rounded-lg">
+            <span className="inline-block px-2 py-0.5 text-xs font-semibold bg-emerald-100 text-emerald-900 rounded mb-1">
+              Nhóm A (&ge;70 điểm)
+            </span>
+            <p className="text-xs text-slate-700 mt-1">
+              Khách hàng mục tiêu cốt lõi. Khớp hoàn toàn mặt hàng và dải tàu của SGCL, ưu tiên phân công Broker tiếp cận ngay.
+            </p>
+          </div>
+          <div className="p-3 bg-amber-50/50 border border-amber-200 rounded-lg">
+            <span className="inline-block px-2 py-0.5 text-xs font-semibold bg-amber-100 text-amber-900 rounded mb-1">
+              Nhóm B (50 &ndash; 69 điểm)
+            </span>
+            <p className="text-xs text-slate-700 mt-1">
+              Khách hàng tiềm năng theo dõi. Cần kiểm tra ngày sẵn sàng hàng (Laycan) hoặc gom lô kết hợp để khớp cỡ tàu.
+            </p>
+          </div>
+          <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+            <span className="inline-block px-2 py-0.5 text-xs font-semibold bg-slate-200 text-slate-700 rounded mb-1">
+              Nhóm C (&lt;50 điểm)
+            </span>
+            <p className="text-xs text-slate-600 mt-1">
+              Đối tượng loại trừ. Không phù hợp phương thức khai thác tàu rời / dự án của SGCL, lưu hồ sơ đối chứng.
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -92,7 +92,7 @@ export default function RulesModal({
       aria-labelledby="rulesModalTitle"
       className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4 animate-fade-in"
     >
-      <div className="bg-white border border-slate-300 shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col">
+      <div className="bg-white border border-slate-300 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
         <div className="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div>
             <h3 id="rulesModalTitle" className="text-sm font-bold text-slate-900">
@@ -106,7 +106,7 @@ export default function RulesModal({
             type="button"
             onClick={onClose}
             aria-label="Đóng"
-            className="text-slate-400 hover:text-slate-700 text-lg font-bold px-1 cursor-pointer"
+            className="text-slate-400 hover:text-slate-700 text-lg font-bold px-2 py-1 cursor-pointer rounded"
           >
             &times;
           </button>
@@ -295,14 +295,14 @@ export default function RulesModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-3.5 py-1.5 border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition cursor-pointer"
+              className="px-3.5 py-1.5 border border-slate-300 bg-white text-slate-700 rounded-md hover:bg-slate-50 transition cursor-pointer"
             >
               Hủy
             </button>
             <button
               type="button"
               onClick={handleSave}
-              className="px-4 py-1.5 bg-[#0F3D75] text-white font-medium hover:bg-[#0A2B54] transition cursor-pointer"
+              className="px-4 py-1.5 bg-[#0F3D75] text-white font-medium rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
             >
               Áp dụng &amp; Tính lại điểm
             </button>

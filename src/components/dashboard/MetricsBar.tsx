@@ -9,77 +9,76 @@ interface MetricsBarProps {
 
 export default function MetricsBar({ metrics, onOpenKpiModal }: MetricsBarProps) {
   return (
-    <div className="mt-4 pt-3 border-t border-slate-200 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-xs">
-      <div>
-        <span className="text-[11px] text-slate-500 block">Tổng hồ sơ đang nạp</span>
-        <div className="mt-0.5 flex items-baseline space-x-1.5">
-          <span className="text-lg font-bold font-mono tabular-nums text-slate-900">
+    <div className="mt-3 pt-3 border-t border-slate-200 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+      <div className="bg-slate-50/80 border border-slate-200/80 rounded-lg p-2.5">
+        <span className="text-xs text-slate-500 font-medium block">Tổng hồ sơ nạp</span>
+        <div className="mt-1 flex items-baseline space-x-1.5">
+          <span className="text-xl font-bold font-mono tabular-nums text-slate-900">
             {metrics.total}
           </span>
-          <span className="text-[11px] text-slate-400">doanh nghiệp</span>
+          <span className="text-xs text-slate-400">hồ sơ</span>
         </div>
       </div>
 
-      <div className="border-l border-slate-200 pl-3">
-        <span className="text-[11px] text-slate-500 block">Đạt tiêu chí (Nhóm A + B)</span>
-        <div className="mt-0.5 flex items-baseline space-x-1.5">
-          <span className="text-lg font-bold font-mono tabular-nums text-emerald-700">
+      <div className="bg-emerald-50/40 border border-emerald-200/60 rounded-lg p-2.5">
+        <span className="text-xs text-emerald-900 font-medium block">Đạt tiêu chí (A + B)</span>
+        <div className="mt-1 flex items-baseline space-x-1.5">
+          <span className="text-xl font-bold font-mono tabular-nums text-emerald-700">
             {metrics.suitableCount}
           </span>
-          <span className="text-[11px] font-mono tabular-nums text-slate-500">
+          <span className="text-xs font-mono font-semibold text-emerald-700">
             ({metrics.suitablePct}%)
           </span>
         </div>
       </div>
 
-      <div className="border-l border-slate-200 pl-3">
-        <span className="text-[11px] text-slate-500 block">Nhóm A (Mục tiêu cốt lõi)</span>
-        <div className="mt-0.5 flex items-baseline space-x-1.5">
-          <span className="text-lg font-bold font-mono tabular-nums text-[#0F3D75]">
+      <div className="bg-blue-50/40 border border-blue-200/60 rounded-lg p-2.5">
+        <span className="text-xs text-blue-900 font-medium block">Nhóm A (Cốt lõi)</span>
+        <div className="mt-1 flex items-baseline space-x-1.5">
+          <span className="text-xl font-bold font-mono tabular-nums text-[#0F3D75]">
             {metrics.groupACount}
           </span>
-          <span className="text-[11px] text-slate-400">ưu tiên tiếp cận</span>
+          <span className="text-xs text-slate-500">ưu tiên tiếp cận</span>
         </div>
       </div>
 
-      <div className="border-l border-slate-200 pl-3">
-        <span className="text-[11px] text-slate-500 block">Nhóm B (Tiềm năng theo dõi)</span>
-        <div className="mt-0.5 flex items-baseline space-x-1.5">
-          <span className="text-lg font-bold font-mono tabular-nums text-amber-700">
+      <div className="bg-amber-50/40 border border-amber-200/60 rounded-lg p-2.5">
+        <span className="text-xs text-amber-900 font-medium block">Nhóm B (Tiềm năng)</span>
+        <div className="mt-1 flex items-baseline space-x-1.5">
+          <span className="text-xl font-bold font-mono tabular-nums text-amber-800">
             {metrics.groupBCount}
           </span>
-          <span className="text-[11px] text-slate-400">theo dõi Laycan</span>
+          <span className="text-xs text-slate-500">theo dõi Laycan</span>
         </div>
       </div>
 
-      <div className="border-l border-slate-200 pl-3">
-        <span className="text-[11px] text-slate-500 block">Nhóm C (Loại trừ tự động)</span>
-        <div className="mt-0.5 flex items-baseline space-x-1.5">
-          <span className="text-lg font-bold font-mono tabular-nums text-slate-500">
+      <div className="bg-slate-50/80 border border-slate-200/80 rounded-lg p-2.5">
+        <span className="text-xs text-slate-500 font-medium block">Nhóm C (Loại trừ)</span>
+        <div className="mt-1 flex items-baseline space-x-1.5">
+          <span className="text-xl font-bold font-mono tabular-nums text-slate-600">
             {metrics.groupCCount}
           </span>
-          <span className="text-[11px] font-mono tabular-nums text-slate-400">
+          <span className="text-xs font-mono text-slate-400">
             ({metrics.groupCPct}%)
           </span>
         </div>
       </div>
 
-      <div className="border-l border-slate-200 pl-3">
-        <span className="text-[11px] text-slate-500 block">Thời gian lọc tiết kiệm (Ước tính)</span>
-        <div className="mt-0.5 flex items-baseline space-x-1.5">
-          <span className="text-lg font-bold font-mono tabular-nums text-[#0F3D75]">
+      <div className="bg-slate-50/80 border border-slate-200/80 rounded-lg p-2.5">
+        <span className="text-xs text-slate-500 font-medium block">Thời gian tiết kiệm</span>
+        <div className="mt-1 flex items-baseline space-x-1.5">
+          <span className="text-xl font-bold font-mono tabular-nums text-[#0F3D75]">
             ~{metrics.savedMinutes}
           </span>
-          <span className="text-[11px] text-slate-500">
-            phút (
+          <span className="text-xs text-slate-500">
+            phút{' '}
             <button
               type="button"
               onClick={onOpenKpiModal}
-              className="text-[#0F3D75] underline hover:text-[#0A2B54] cursor-pointer"
+              className="text-[#0F3D75] hover:text-[#0A2B54] underline font-medium cursor-pointer"
             >
-              Chi tiết
+              (KPIs)
             </button>
-            )
           </span>
         </div>
       </div>

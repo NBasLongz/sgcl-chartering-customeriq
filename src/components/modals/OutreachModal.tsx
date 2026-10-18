@@ -83,51 +83,51 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
       aria-labelledby="outreachModalTitle"
       className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4 animate-fade-in"
     >
-      <div className="bg-white border border-slate-300 shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col">
+      <div className="bg-white border border-slate-300 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
         <div className="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div>
             <h3 id="outreachModalTitle" className="text-sm font-bold text-slate-900">
-              Dự thảo Nội dung Tiếp cận Khách hàng Cá nhân hóa (Mục 3.3.2 &amp; 3.4.3)
+              Dự thảo Thư chào tàu &amp; Kịch bản Tiếp cận Khách hàng
             </h3>
             <p className="text-xs text-slate-500">
-              Tự động trích xuất thông số Hàng - Tuyến - Tàu để tạo bản nháp chào cước chuẩn nghiệp vụ Chartering
+              Tự động trích xuất thông số Mặt hàng &ndash; Tuyến &ndash; Cỡ tàu để tạo bản nháp chào cước chuẩn nghiệp vụ Broker
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Đóng"
-            className="text-slate-400 hover:text-slate-700 text-lg font-bold px-1 cursor-pointer"
+            className="text-slate-400 hover:text-slate-700 text-lg font-bold px-2 py-1 cursor-pointer rounded"
           >
             &times;
           </button>
         </div>
 
         <div className="p-5 space-y-4 text-xs overflow-y-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-3 border border-slate-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-3.5 rounded-lg border border-slate-200">
             <div>
-              <span className="text-slate-400 block text-[11px]">Khách hàng mục tiêu:</span>
+              <span className="text-slate-400 block text-xs">Khách hàng mục tiêu:</span>
               <span className="font-bold text-slate-900">{lead.company}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[11px]">Phân nhóm &amp; Nghiệp vụ:</span>
+              <span className="text-slate-400 block text-xs">Phân nhóm &amp; Nghiệp vụ:</span>
               <span className="font-semibold text-[#0F3D75]">
                 Nhóm {lead.group} ({lead.score}/100đ) &middot; {lead.service}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[11px]">Lô hàng &amp; Tuyến:</span>
+              <span className="text-slate-400 block text-xs">Lô hàng &amp; Tuyến:</span>
               <span className="font-medium text-slate-800">
                 {lead.cargo} ({lead.volume}) &middot; Tuyến: {lead.route}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[11px]">
-                Phương thức &amp; Khung giờ tiếp cận tối ưu:
+              <span className="text-slate-400 block text-xs">
+                Phương thức tiếp cận phù hợp:
               </span>
               <span className="font-medium text-emerald-800">
                 {lead.group === 'A'
-                  ? 'Email báo giá chỉ dẫn + Gọi điện trực tiếp (Khung giờ 09:00 - 10:30)'
+                  ? 'Email chào cước chỉ dẫn + Liên hệ điện thoại trực tiếp'
                   : 'Gửi Email Bản tin Thị trường Cước & Lịch tàu định kỳ'}
               </span>
             </div>
@@ -141,10 +141,10 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
               id="outreachLangSelect"
               value={language}
               onChange={e => setLanguage(e.target.value as 'VI' | 'EN')}
-              className="border border-slate-300 bg-white px-2.5 py-1 text-xs font-medium cursor-pointer focus:outline-none"
+              className="border border-slate-300 bg-white rounded-md px-3 py-1.5 text-xs font-medium cursor-pointer focus:border-[#0F3D75] focus:outline-none"
             >
               <option value="VI">Tiếng Việt (Chủ hàng / XNK Nội địa)</option>
-              <option value="EN">Tiếng Anh Quốc tế (Standard Baltic/BIMCO Style)</option>
+              <option value="EN">Tiếng Anh Quốc tế (Standard Baltic / BIMCO Style)</option>
             </select>
           </div>
 
@@ -157,7 +157,7 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
               type="text"
               readOnly
               value={subject}
-              className="w-full bg-slate-50 border border-slate-300 px-2.5 py-1.5 font-mono text-xs text-slate-800 focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-300 rounded-md px-3 py-2 font-mono text-xs text-slate-800 focus:outline-none"
             />
           </div>
 
@@ -170,12 +170,12 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
               rows={9}
               value={body}
               onChange={e => setBody(e.target.value)}
-              className="w-full bg-white border border-slate-300 p-3 font-mono text-xs text-slate-800 leading-relaxed focus:outline-none"
+              className="w-full bg-white border border-slate-300 rounded-md p-3 font-mono text-xs text-slate-800 leading-relaxed focus:border-[#0F3D75] focus:outline-none"
             />
           </div>
 
-          <div className="p-2.5 bg-amber-50 border border-amber-200 text-amber-900 text-[11px]">
-            <strong>Quy tắc kiểm soát rủi ro (Mục 3.4.5 - Bước 3):</strong> Nhân viên môi giới bắt buộc kiểm tra lại tình trạng tàu trống thực tế (Open Position), giới hạn mớn nước cảng (Draft) và mức cước chỉ dẫn trước khi gửi cho khách hàng.
+          <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-900 text-xs">
+            <strong>Lưu ý nghiệp vụ Broker:</strong> Chuyên viên môi giới cần kiểm tra lại tình trạng tàu trống thực tế (Open Position), giới hạn mớn nước cảng (Draft) và mức cước chỉ dẫn trước khi gửi chính thức cho khách hàng.
           </div>
         </div>
 
@@ -183,14 +183,14 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
           <button
             type="button"
             onClick={handleCopy}
-            className="px-3.5 py-1.5 bg-[#0F3D75] text-white font-medium hover:bg-[#0A2B54] transition cursor-pointer"
+            className="px-3.5 py-1.5 bg-[#0F3D75] text-white font-medium rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
           >
             Sao chép Nội dung Email
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition cursor-pointer"
+            className="px-4 py-1.5 border border-slate-300 bg-white text-slate-700 rounded-md hover:bg-slate-50 transition cursor-pointer"
           >
             Đóng
           </button>

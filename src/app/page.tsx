@@ -122,21 +122,21 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => setActiveModal('upload')}
-                    className="px-3 py-1.5 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 active:bg-slate-100 transition cursor-pointer"
+                    className="px-3 py-1.5 bg-white border border-slate-300 rounded-md text-slate-700 hover:bg-slate-50 active:bg-slate-100 transition cursor-pointer"
                   >
-                    <span>Nạp danh sách (.xlsx / .csv)</span>
+                    <span>Nạp thêm tệp (.xlsx / .csv)</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveModal('rules')}
-                    className="px-3 py-1.5 bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 active:bg-slate-100 transition cursor-pointer"
+                    className="px-3 py-1.5 bg-white border border-slate-300 rounded-md text-slate-700 hover:bg-slate-50 active:bg-slate-100 transition cursor-pointer"
                   >
                     <span>Cấu hình tiêu chí &amp; trọng số</span>
                   </button>
                   <button
                     type="button"
                     onClick={exportQualified}
-                    className="px-3.5 py-1.5 bg-[#0F3D75] text-white hover:bg-[#0A2B54] active:bg-slate-900 transition cursor-pointer"
+                    className="px-3.5 py-1.5 bg-[#0F3D75] text-white hover:bg-[#0A2B54] rounded-md transition cursor-pointer font-semibold shadow-xs"
                   >
                     <span>Xuất DS đạt tiêu chí ({kpiMetrics.suitableCount})</span>
                   </button>
@@ -144,7 +144,7 @@ export default function Home() {
                     type="button"
                     onClick={clearData}
                     title="Xóa danh sách hiện tại và quay về màn hình nạp file ban đầu"
-                    className="px-2.5 py-1.5 bg-slate-100 border border-slate-300 text-slate-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 transition cursor-pointer flex items-center space-x-1"
+                    className="px-2.5 py-1.5 bg-slate-100 border border-slate-300 rounded-md text-slate-600 hover:bg-red-50 hover:text-red-700 hover:border-red-300 transition cursor-pointer flex items-center space-x-1"
                   >
                     <span>Quay về trang nạp</span>
                   </button>

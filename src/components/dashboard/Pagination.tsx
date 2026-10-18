@@ -53,7 +53,7 @@ export default function Pagination({
           <select
             value={rowsPerPage}
             onChange={e => onRowsPerPageChange(parseInt(e.target.value, 10))}
-            className="bg-white border border-slate-300 px-1.5 py-0.5 text-xs font-mono cursor-pointer focus:outline-none"
+            className="bg-white border border-slate-300 rounded-md px-2 py-1 text-xs font-mono cursor-pointer focus:border-[#0F3D75] focus:outline-none"
           >
             <option value={8}>8</option>
             <option value={15}>15</option>
@@ -67,7 +67,7 @@ export default function Pagination({
           type="button"
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage <= 1}
-          className={`px-2.5 py-1 border text-xs transition ${
+          className={`px-3 py-1 rounded-md border text-xs transition ${
             currentPage <= 1
               ? 'border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed'
               : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer'
@@ -81,7 +81,7 @@ export default function Pagination({
             key={p}
             type="button"
             onClick={() => onPageChange(p)}
-            className={`px-2.5 py-1 border font-mono font-medium text-xs transition cursor-pointer ${
+            className={`px-3 py-1 rounded-md border font-mono font-medium text-xs transition cursor-pointer ${
               p === currentPage
                 ? 'border-[#0F3D75] bg-[#0F3D75] text-white'
                 : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-100'
@@ -95,7 +95,7 @@ export default function Pagination({
           type="button"
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage >= totalPages}
-          className={`px-2.5 py-1 border text-xs transition ${
+          className={`px-3 py-1 rounded-md border text-xs transition ${
             currentPage >= totalPages
               ? 'border-slate-200 bg-slate-100 text-slate-400 cursor-not-allowed'
               : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer'

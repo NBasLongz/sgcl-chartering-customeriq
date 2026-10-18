@@ -21,7 +21,7 @@ export default function NaiveModeWarning({
       <button
         type="button"
         onClick={onSwitchToContext}
-        className="ml-4 px-2.5 py-1 bg-amber-800 text-white text-[11px] font-medium shrink-0 hover:bg-amber-900 transition cursor-pointer"
+        className="ml-4 px-3 py-1 bg-amber-800 text-white text-xs font-semibold rounded-md shrink-0 hover:bg-amber-900 transition cursor-pointer"
       >
         Chuyển về Phân tích Ngữ cảnh
       </button>

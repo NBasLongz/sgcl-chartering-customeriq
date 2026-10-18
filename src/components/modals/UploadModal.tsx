@@ -99,7 +99,7 @@ export default function UploadModal({
       aria-labelledby="uploadModalTitle"
       className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4 animate-fade-in"
     >
-      <div className="bg-white border border-slate-300 shadow-xl max-w-xl w-full max-h-[90vh] flex flex-col">
+      <div className="bg-white border border-slate-300 rounded-xl shadow-xl max-w-xl w-full max-h-[90vh] flex flex-col overflow-hidden">
         <div className="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div>
             <h3 id="uploadModalTitle" className="text-sm font-bold text-slate-900">
@@ -113,7 +113,7 @@ export default function UploadModal({
             type="button"
             onClick={onClose}
             aria-label="Đóng"
-            className="text-slate-400 hover:text-slate-700 text-lg font-bold px-1 cursor-pointer"
+            className="text-slate-400 hover:text-slate-700 text-lg font-bold px-2 py-1 cursor-pointer rounded"
           >
             &times;
           </button>
@@ -251,7 +251,7 @@ export default function UploadModal({
               <button
                 type="button"
                 onClick={handleQuickAdd}
-                className="bg-[#0F3D75] hover:bg-[#0A2B54] text-white font-medium px-3.5 py-1.5 transition cursor-pointer"
+                className="bg-[#0F3D75] hover:bg-[#0A2B54] text-white font-medium px-4 py-1.5 rounded-md transition cursor-pointer"
               >
                 Chấm điểm &amp; Thêm vào bảng
               </button>
@@ -270,7 +270,7 @@ export default function UploadModal({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition cursor-pointer"
+            className="px-4 py-1.5 border border-slate-300 bg-white text-slate-700 rounded-md hover:bg-slate-50 transition cursor-pointer"
           >
             Đóng
           </button>
