@@ -75,15 +75,15 @@ export default function LeadTable({
             <th className="py-3 px-3.5 w-48 text-left">Trạng thái thẩm định</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-200 text-xs">
+        <tbody className="divide-y divide-slate-200 text-sm">
           {leads.length === 0 ? (
             <tr>
-              <td colSpan={7} className="py-12 px-4 text-center text-slate-500 text-sm">
+              <td colSpan={7} className="py-14 px-4 text-center text-slate-500 text-base">
                 Không có hồ sơ khách hàng nào khớp với tiêu chí lọc hiện tại.
                 <button
                   type="button"
                   onClick={onResetFilters}
-                  className="ml-2 text-[#0F3D75] underline font-medium cursor-pointer"
+                  className="ml-2 text-[#0F3D75] underline font-semibold cursor-pointer"
                 >
                   Xóa bộ lọc
                 </button>
@@ -102,21 +102,21 @@ export default function LeadTable({
               }
 
               let groupBadge = (
-                <span className="inline-block px-2.5 py-0.5 text-xs font-semibold rounded-md bg-slate-100 text-slate-600 border border-slate-300">
+                <span className="inline-block px-3 py-1 text-xs font-bold rounded-md bg-slate-100 text-slate-700 border border-slate-300">
                   Nhóm C
                 </span>
               );
               let scoreClass = 'text-slate-400';
               if (item.group === 'A') {
                 groupBadge = (
-                  <span className="inline-block px-2.5 py-0.5 text-xs font-semibold rounded-md bg-emerald-50 text-emerald-800 border border-emerald-300">
+                  <span className="inline-block px-3 py-1 text-xs font-bold rounded-md bg-emerald-50 text-emerald-800 border border-emerald-300">
                     Nhóm A
                   </span>
                 );
                 scoreClass = 'text-emerald-800 font-bold';
               } else if (item.group === 'B') {
                 groupBadge = (
-                  <span className="inline-block px-2.5 py-0.5 text-xs font-semibold rounded-md bg-amber-50 text-amber-800 border border-amber-300">
+                  <span className="inline-block px-3 py-1 text-xs font-bold rounded-md bg-amber-50 text-amber-800 border border-amber-300">
                     Nhóm B
                   </span>
                 );
@@ -124,27 +124,27 @@ export default function LeadTable({
               }
 
               let serviceLabel = (
-                <span className="text-xs font-medium text-slate-500">{item.service}</span>
+                <span className="text-xs font-semibold text-slate-500">{item.service}</span>
               );
               if (item.service === 'Dry Bulk Chartering') {
                 serviceLabel = (
-                  <span className="text-xs font-semibold text-[#0F3D75]">Dry Bulk Chartering</span>
+                  <span className="text-xs font-bold text-[#0F3D75]">Dry Bulk Chartering</span>
                 );
               } else if (item.service === 'Project / Breakbulk') {
                 serviceLabel = (
-                  <span className="text-xs font-semibold text-indigo-800">Project / Breakbulk</span>
+                  <span className="text-xs font-bold text-indigo-800">Project / Breakbulk</span>
                 );
               }
 
-              let statusSelectStyle = 'border-slate-300 bg-white text-slate-700';
+              let statusSelectStyle = 'border-slate-300 bg-white text-slate-800';
               if (item.status === 'Đã duyệt tiếp cận') {
-                statusSelectStyle = 'border-emerald-300 bg-emerald-50 text-emerald-900 font-medium';
+                statusSelectStyle = 'border-emerald-300 bg-emerald-50 text-emerald-900 font-semibold';
               } else if (item.status === 'Giao Senior Broker') {
-                statusSelectStyle = 'border-blue-300 bg-blue-50 text-blue-900 font-medium';
+                statusSelectStyle = 'border-blue-300 bg-blue-50 text-blue-900 font-semibold';
               } else if (item.status === 'Đưa vào lịch chăm sóc') {
-                statusSelectStyle = 'border-amber-300 bg-amber-50 text-amber-900 font-medium';
+                statusSelectStyle = 'border-amber-300 bg-amber-50 text-amber-900 font-semibold';
               } else if (item.status === 'Cần Broker kiểm tra lại') {
-                statusSelectStyle = 'border-red-300 bg-red-50 text-red-900 font-semibold';
+                statusSelectStyle = 'border-red-300 bg-red-50 text-red-900 font-bold';
               }
 
               return (
@@ -154,71 +154,71 @@ export default function LeadTable({
                   className={`${rowBg} transition cursor-pointer`}
                 >
                   <td
-                    className={`py-3 px-3.5 font-mono tabular-nums text-xs ${
-                      isExcluded ? 'text-slate-400' : 'text-slate-600 font-semibold'
+                    className={`py-3.5 px-3.5 font-mono tabular-nums text-sm ${
+                      isExcluded ? 'text-slate-400' : 'text-slate-700 font-bold'
                     } align-top`}
                   >
                     {item.id}
                   </td>
-                  <td className="py-3 px-3.5 align-top">
+                  <td className="py-3.5 px-3.5 align-top">
                     <div
-                      className={`text-sm font-semibold ${isExcluded ? 'text-slate-600' : 'text-slate-900'}`}
+                      className={`text-base font-bold ${isExcluded ? 'text-slate-600' : 'text-slate-900'}`}
                     >
                       {item.company}
                     </div>
-                    <div className="text-xs text-slate-500 mt-0.5">
+                    <div className="text-xs text-slate-500 mt-1">
                       {item.role} &middot; Nguồn: {item.source}
                     </div>
                   </td>
-                  <td className="py-3 px-3.5 align-top">
-                    <div className={isExcluded ? 'text-slate-500' : 'text-xs font-medium text-slate-800'}>
+                  <td className="py-3.5 px-3.5 align-top">
+                    <div className={isExcluded ? 'text-slate-500' : 'text-sm font-semibold text-slate-800'}>
                       {item.cargo}
                     </div>
-                    <div className="text-xs font-mono tabular-nums text-slate-500 mt-0.5">
+                    <div className="text-xs font-mono tabular-nums text-slate-500 mt-1 font-medium">
                       {item.volume}
                     </div>
                   </td>
                   <td
-                    className={`py-3 px-3.5 align-top text-xs ${
-                      isExcluded ? 'text-slate-500' : 'font-medium text-slate-800'
+                    className={`py-3.5 px-3.5 align-top text-sm ${
+                      isExcluded ? 'text-slate-500' : 'font-semibold text-slate-800'
                     }`}
                   >
                     {item.route}
                   </td>
-                  <td className="py-3 px-3.5 align-top max-w-sm">
+                  <td className="py-3.5 px-3.5 align-top max-w-sm">
                     <div className="flex items-center justify-between">
                       {serviceLabel}
-                      <span className="text-xs text-[#0F3D75] hover:underline font-semibold">
+                      <span className="text-xs text-[#0F3D75] hover:underline font-bold">
                         Chi tiết &rarr;
                       </span>
                     </div>
                     <p
-                      className="text-xs text-slate-600 mt-0.5 line-clamp-2 leading-relaxed"
+                      className="text-sm text-slate-700 mt-1 line-clamp-2 leading-relaxed"
                       title={item.reason}
                     >
                       {item.reason}
                     </p>
                   </td>
-                  <td className="py-3 px-3.5 align-top text-right">
+                  <td className="py-3.5 px-3.5 align-top text-right">
                     <div className="flex items-center justify-end space-x-2">
-                      <span className={`font-mono tabular-nums text-sm ${scoreClass}`}>
+                      <span className={`font-mono tabular-nums text-base ${scoreClass}`}>
                         {String(item.score).padStart(2, '0')}
                       </span>
                       {groupBadge}
                     </div>
                     {item.manualGroup !== 'AUTO' && (
-                      <span className="text-xs text-blue-700 block mt-0.5">Đã ghi đè</span>
+                      <span className="text-xs text-blue-700 font-medium block mt-1">Đã ghi đè</span>
                     )}
                   </td>
                   <td
-                    className="py-3 px-3.5 align-top"
+                    className="py-3.5 px-3.5 align-top"
                     onClick={e => e.stopPropagation()}
                   >
                     <select
                       value={item.status}
                       aria-label={`Cập nhật trạng thái thẩm định cho ${item.company}`}
                       onChange={e => onUpdateStatus(item.id, e.target.value as LeadStatus)}
-                      className={`w-full border rounded-md px-2.5 py-1.5 text-xs cursor-pointer focus:outline-none transition ${statusSelectStyle}`}
+                      className={`w-full border rounded-md px-3 py-2 text-xs cursor-pointer focus:outline-none transition ${statusSelectStyle}`}
                     >
                       {statuses.map(st => (
                         <option key={st} value={st}>

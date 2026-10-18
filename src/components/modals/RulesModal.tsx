@@ -93,12 +93,12 @@ export default function RulesModal({
       className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4 animate-fade-in"
     >
       <div className="bg-white border border-slate-300 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
-        <div className="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div>
-            <h3 id="rulesModalTitle" className="text-sm font-bold text-slate-900">
+            <h3 id="rulesModalTitle" className="text-base font-bold text-slate-900">
               Cấu hình Bộ tiêu chí, Trọng số &amp; Bảo mật Dữ liệu
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-sm text-slate-500 mt-0.5">
               Mọi thay đổi về trọng số và từ khóa sẽ tự động tính toán lại điểm số và lưu vào bộ nhớ phiên làm việc.
             </p>
           </div>
@@ -106,21 +106,21 @@ export default function RulesModal({
             type="button"
             onClick={onClose}
             aria-label="Đóng"
-            className="text-slate-400 hover:text-slate-700 text-lg font-bold px-2 py-1 cursor-pointer rounded"
+            className="text-slate-400 hover:text-slate-700 text-xl font-bold px-2 py-1 cursor-pointer rounded"
           >
             &times;
           </button>
         </div>
 
-        <div className="p-5 space-y-4 text-xs overflow-y-auto">
+        <div className="p-5 space-y-4 text-sm overflow-y-auto">
           {/* Weights configuration */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="font-semibold text-slate-800">
+              <span className="font-semibold text-slate-800 text-sm">
                 1. Phân bổ Trọng số Chấm điểm (Tổng = 100%)
               </span>
               <span
-                className={`font-mono font-semibold ${
+                className={`font-mono font-semibold text-sm ${
                   currentSum === 100 ? 'text-emerald-700' : 'text-red-700'
                 }`}
               >
@@ -128,8 +128,8 @@ export default function RulesModal({
               </span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div className="p-3 bg-slate-50 border border-slate-200">
-                <label htmlFor="inputWeightCargo" className="font-medium text-slate-700 block">
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                <label htmlFor="inputWeightCargo" className="font-medium text-slate-700 block text-sm">
                   Độ khớp Mặt hàng (%)
                 </label>
                 <input
@@ -140,14 +140,14 @@ export default function RulesModal({
                   step="5"
                   value={wCargo}
                   onChange={e => setWCargo(parseInt(e.target.value, 10) || 0)}
-                  className="mt-1.5 w-full bg-white border border-slate-300 px-2.5 py-1.5 font-mono font-bold text-sm text-[#0F3D75] focus:outline-none"
+                  className="mt-1.5 w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-bold text-base text-[#0F3D75] focus:outline-none focus:border-[#0F3D75]"
                 />
-                <p className="text-[11px] text-slate-500 mt-1">
+                <p className="text-xs text-slate-500 mt-1 leading-snug">
                   Than, clinker, xi măng, nông sản, thép, thiết bị dự án
                 </p>
               </div>
-              <div className="p-3 bg-slate-50 border border-slate-200">
-                <label htmlFor="inputWeightRoute" className="font-medium text-slate-700 block">
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                <label htmlFor="inputWeightRoute" className="font-medium text-slate-700 block text-sm">
                   Tuyến &amp; Cảng POL/POD (%)
                 </label>
                 <input
@@ -158,14 +158,14 @@ export default function RulesModal({
                   step="5"
                   value={wRoute}
                   onChange={e => setWRoute(parseInt(e.target.value, 10) || 0)}
-                  className="mt-1.5 w-full bg-white border border-slate-300 px-2.5 py-1.5 font-mono font-bold text-sm text-[#0F3D75] focus:outline-none"
+                  className="mt-1.5 w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-bold text-base text-[#0F3D75] focus:outline-none focus:border-[#0F3D75]"
                 />
-                <p className="text-[11px] text-slate-500 mt-1">
+                <p className="text-xs text-slate-500 mt-1 leading-snug">
                   Đông Nam Á, Đông Á, Nam Á (Ấn Độ), Trung Đông, Nam Phi
                 </p>
               </div>
-              <div className="p-3 bg-slate-50 border border-slate-200">
-                <label htmlFor="inputWeightVolume" className="font-medium text-slate-700 block">
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                <label htmlFor="inputWeightVolume" className="font-medium text-slate-700 block text-sm">
                   Quy mô lô &amp; Cỡ tàu (%)
                 </label>
                 <input
@@ -176,9 +176,9 @@ export default function RulesModal({
                   step="5"
                   value={wVolume}
                   onChange={e => setWVolume(parseInt(e.target.value, 10) || 0)}
-                  className="mt-1.5 w-full bg-white border border-slate-300 px-2.5 py-1.5 font-mono font-bold text-sm text-[#0F3D75] focus:outline-none"
+                  className="mt-1.5 w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-bold text-base text-[#0F3D75] focus:outline-none focus:border-[#0F3D75]"
                 />
-                <p className="text-[11px] text-slate-500 mt-1">
+                <p className="text-xs text-slate-500 mt-1 leading-snug">
                   Lô hàng tàu chuyến 3.000 &ndash; 55.000 MT hoặc CBM dự án
                 </p>
               </div>
@@ -188,7 +188,7 @@ export default function RulesModal({
           {/* Group Thresholds */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
             <div>
-              <label htmlFor="inputThresholdA" className="font-semibold text-slate-700 block mb-1">
+              <label htmlFor="inputThresholdA" className="font-semibold text-slate-700 block mb-1 text-sm">
                 Ngưỡng điểm tối thiểu Nhóm A (Mục tiêu cốt lõi):
               </label>
               <input
@@ -198,11 +198,11 @@ export default function RulesModal({
                 max="95"
                 value={thA}
                 onChange={e => setThA(parseInt(e.target.value, 10) || 0)}
-                className="w-full bg-white border border-slate-300 px-2.5 py-1.5 font-mono font-semibold focus:outline-none"
+                className="w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-semibold text-sm focus:outline-none focus:border-[#0F3D75]"
               />
             </div>
             <div>
-              <label htmlFor="inputThresholdB" className="font-semibold text-slate-700 block mb-1">
+              <label htmlFor="inputThresholdB" className="font-semibold text-slate-700 block mb-1 text-sm">
                 Ngưỡng điểm tối thiểu Nhóm B (Tiềm năng theo dõi):
               </label>
               <input
@@ -212,7 +212,7 @@ export default function RulesModal({
                 max="79"
                 value={thB}
                 onChange={e => setThB(parseInt(e.target.value, 10) || 0)}
-                className="w-full bg-white border border-slate-300 px-2.5 py-1.5 font-mono font-semibold focus:outline-none"
+                className="w-full bg-white border border-slate-300 rounded px-3 py-2 font-mono font-semibold text-sm focus:outline-none focus:border-[#0F3D75]"
               />
             </div>
           </div>
@@ -220,7 +220,7 @@ export default function RulesModal({
           {/* Editable Keyword Dictionaries */}
           <div className="space-y-3 pt-2 border-t border-slate-200">
             <div>
-              <label htmlFor="inputBulkKeywords" className="block font-semibold text-slate-700 mb-1">
+              <label htmlFor="inputBulkKeywords" className="block font-semibold text-slate-700 mb-1 text-sm">
                 Từ khóa Mặt hàng Rời khô (Dry Bulk Chartering):
               </label>
               <textarea
@@ -228,11 +228,11 @@ export default function RulesModal({
                 rows={2}
                 value={bulkText}
                 onChange={e => setBulkText(e.target.value)}
-                className="w-full border border-slate-300 p-2 text-slate-800 font-mono text-[11px] focus:outline-none"
+                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#0F3D75]"
               />
             </div>
             <div>
-              <label htmlFor="inputProjectKeywords" className="block font-semibold text-slate-700 mb-1">
+              <label htmlFor="inputProjectKeywords" className="block font-semibold text-slate-700 mb-1 text-sm">
                 Từ khóa Hàng Dự án &amp; Breakbulk (Project Services):
               </label>
               <textarea
@@ -240,11 +240,11 @@ export default function RulesModal({
                 rows={2}
                 value={projectText}
                 onChange={e => setProjectText(e.target.value)}
-                className="w-full border border-slate-300 p-2 text-slate-800 font-mono text-[11px] focus:outline-none"
+                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#0F3D75]"
               />
             </div>
             <div>
-              <label htmlFor="inputNegativeKeywords" className="block font-semibold text-red-800 mb-1">
+              <label htmlFor="inputNegativeKeywords" className="block font-semibold text-red-800 mb-1 text-sm">
                 Từ khóa Loại trừ (Negative Gate - Chuyển thẳng vào Nhóm C):
               </label>
               <textarea
@@ -252,18 +252,18 @@ export default function RulesModal({
                 rows={2}
                 value={negText}
                 onChange={e => setNegText(e.target.value)}
-                className="w-full border border-slate-300 p-2 text-slate-800 font-mono text-[11px] focus:outline-none"
+                className="w-full border border-slate-300 rounded p-2.5 text-slate-800 font-mono text-sm focus:outline-none focus:border-[#0F3D75]"
               />
             </div>
           </div>
 
-          {/* Security & Data Masking Setting (Mục 3.5.2) */}
+          {/* Security & Data Masking Setting */}
           <div className="pt-2 border-t border-slate-200 flex items-center justify-between">
             <div>
-              <span className="font-semibold text-slate-800 block">
-                Chế độ Ẩn danh Dữ liệu nhạy cảm (Data Masking - Mục 3.5.2)
+              <span className="font-semibold text-slate-800 block text-sm">
+                Chế độ Ẩn danh Dữ liệu nhạy cảm (Data Masking)
               </span>
-              <span className="text-[11px] text-slate-500">
+              <span className="text-xs text-slate-500">
                 Tự động lọc bỏ SĐT/Email cá nhân trước khi đưa vào luồng phân tích AI
               </span>
             </div>
@@ -272,18 +272,18 @@ export default function RulesModal({
               type="checkbox"
               checked={dataMasking}
               onChange={e => setDataMasking(e.target.checked)}
-              className="w-4 h-4 border-slate-300 cursor-pointer"
+              className="w-4 h-4 rounded border-slate-300 cursor-pointer"
             />
           </div>
 
           {errorMsg && (
-            <div className="p-2.5 bg-red-50 border border-red-300 text-red-800 text-xs">
+            <div className="p-3 bg-red-50 border border-red-300 rounded-lg text-red-800 text-sm">
               {errorMsg}
             </div>
           )}
         </div>
 
-        <div className="px-5 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs">
+        <div className="px-5 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-sm">
           <button
             type="button"
             onClick={handleReset}
@@ -291,18 +291,18 @@ export default function RulesModal({
           >
             Khôi phục mặc định
           </button>
-          <div className="flex space-x-2">
+          <div className="flex space-x-2.5">
             <button
               type="button"
               onClick={onClose}
-              className="px-3.5 py-1.5 border border-slate-300 bg-white text-slate-700 rounded-md hover:bg-slate-50 transition cursor-pointer"
+              className="px-4 py-2 border border-slate-300 bg-white text-slate-700 rounded-md hover:bg-slate-50 transition cursor-pointer font-medium"
             >
               Hủy
             </button>
             <button
               type="button"
               onClick={handleSave}
-              className="px-4 py-1.5 bg-[#0F3D75] text-white font-medium rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
+              className="px-4 py-2 bg-[#0F3D75] text-white font-medium rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
             >
               Áp dụng &amp; Tính lại điểm
             </button>

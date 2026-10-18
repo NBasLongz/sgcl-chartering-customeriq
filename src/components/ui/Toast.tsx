@@ -23,14 +23,14 @@ export default function Toast({ message, onClose, duration = 3500 }: ToastProps)
     <div
       role="status"
       aria-live="polite"
-      className="fixed bottom-4 right-4 bg-slate-900 text-white text-xs px-4 py-2.5 rounded-lg shadow-xl border border-slate-700 z-50 flex items-center space-x-2 animate-fade-in"
+      className="fixed bottom-4 right-4 bg-slate-900 text-white text-sm px-4 py-3 rounded-lg shadow-xl border border-slate-700 z-50 flex items-center space-x-2.5 animate-fade-in"
     >
-      <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-      <span>{message}</span>
+      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0"></span>
+      <span className="leading-snug">{message}</span>
       <button
         type="button"
         onClick={onClose}
-        className="ml-3 text-slate-400 hover:text-white font-bold"
+        className="ml-3 text-slate-400 hover:text-white font-bold cursor-pointer text-base"
         aria-label="Đóng thông báo"
       >
         &times;

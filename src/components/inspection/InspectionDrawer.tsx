@@ -46,24 +46,24 @@ export default function InspectionDrawer({
   return (
     <aside
       aria-label="Chi tiết hồ sơ khách hàng và thẩm định nghiệp vụ"
-      className="w-full lg:w-[420px] bg-white border-l border-slate-200 flex flex-col justify-between shrink-0 overflow-y-auto animate-fade-in"
+      className="w-full lg:w-[480px] bg-white border-l border-slate-200 flex flex-col justify-between shrink-0 overflow-y-auto animate-fade-in"
     >
-      <div className="p-4 space-y-4">
+      <div className="p-5 space-y-5">
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-slate-200 pb-3">
+        <div className="flex items-start justify-between border-b border-slate-200 pb-3.5">
           <div>
-            <div className="flex items-center space-x-2">
-              <span className="font-mono text-xs font-semibold text-slate-500">
+            <div className="flex items-center space-x-2.5">
+              <span className="font-mono text-sm font-bold text-slate-600">
                 {lead.id}
               </span>
-              <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-md ${badgeClass}`}>
+              <span className={`px-3 py-1 text-xs font-bold rounded-md ${badgeClass}`}>
                 Nhóm {lead.group}
               </span>
             </div>
-            <h3 className="text-base font-bold text-slate-900 mt-1">
+            <h3 className="text-lg font-bold text-slate-900 mt-1.5">
               {lead.company}
             </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-sm text-slate-500 mt-0.5">
               Vai trò: {lead.role} &middot; Nguồn: {lead.source}
             </p>
           </div>
@@ -71,7 +71,7 @@ export default function InspectionDrawer({
             type="button"
             onClick={onClose}
             aria-label="Đóng bảng chi tiết"
-            className="text-slate-400 hover:text-slate-700 px-2 py-1 text-lg font-bold cursor-pointer rounded"
+            className="text-slate-400 hover:text-slate-700 px-2.5 py-1 text-xl font-bold cursor-pointer rounded"
           >
             &times;
           </button>
@@ -79,9 +79,9 @@ export default function InspectionDrawer({
 
         {/* Action Button: Generate Outreach Email (For Group A & B) */}
         {isSuitable && (
-          <div className="bg-blue-50/70 border border-blue-200 rounded-lg p-3 flex items-center justify-between text-xs">
+          <div className="bg-blue-50/70 border border-blue-200 rounded-lg p-3.5 flex items-center justify-between text-sm">
             <div>
-              <span className="font-semibold text-[#0F3D75] block">
+              <span className="font-bold text-[#0F3D75] block text-sm">
                 Tiếp cận Khách hàng
               </span>
               <span className="text-xs text-slate-600">
@@ -91,7 +91,7 @@ export default function InspectionDrawer({
             <button
               type="button"
               onClick={onOpenOutreachModal}
-              className="px-3 py-1.5 bg-[#0F3D75] text-white font-semibold text-xs rounded-md hover:bg-[#0A2B54] shrink-0 transition cursor-pointer"
+              className="px-3.5 py-2 bg-[#0F3D75] text-white font-semibold text-xs rounded-md hover:bg-[#0A2B54] shrink-0 transition cursor-pointer shadow-xs"
             >
               Soạn Email Tiếp cận
             </button>
@@ -100,83 +100,83 @@ export default function InspectionDrawer({
 
         {/* 1. Score Breakdown Table */}
         <div>
-          <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
               1. Bóc tách Điểm số Đa chiều
             </span>
-            <span className="font-mono text-sm font-bold text-[#0F3D75]">
+            <span className="font-mono text-base font-bold text-[#0F3D75]">
               {lead.score}/100
             </span>
           </div>
-          <div className="bg-slate-50 border border-slate-200 rounded-lg divide-y divide-slate-200 text-xs">
-            <div className="px-3 py-2 flex justify-between items-center">
-              <span className="text-slate-600">
+          <div className="bg-slate-50 border border-slate-200 rounded-lg divide-y divide-slate-200 text-sm">
+            <div className="px-3.5 py-2.5 flex justify-between items-center">
+              <span className="text-slate-700 font-medium">
                 Độ khớp Mặt hàng ({rules.weightCargo}%)
               </span>
-              <span className="font-mono font-semibold text-slate-900">
+              <span className="font-mono font-bold text-slate-900">
                 {lead.scoreCargo} / {rules.weightCargo}
               </span>
             </div>
-            <div className="px-3 py-2 flex justify-between items-center">
-              <span className="text-slate-600">
+            <div className="px-3.5 py-2.5 flex justify-between items-center">
+              <span className="text-slate-700 font-medium">
                 Tuyến &amp; Cảng POL/POD ({rules.weightRoute}%)
               </span>
-              <span className="font-mono font-semibold text-slate-900">
+              <span className="font-mono font-bold text-slate-900">
                 {lead.scoreRoute} / {rules.weightRoute}
               </span>
             </div>
-            <div className="px-3 py-2 flex justify-between items-center">
-              <span className="text-slate-600">
+            <div className="px-3.5 py-2.5 flex justify-between items-center">
+              <span className="text-slate-700 font-medium">
                 Quy mô lô &amp; Cỡ tàu ({rules.weightVolume}%)
               </span>
-              <span className="font-mono font-semibold text-slate-900">
+              <span className="font-mono font-bold text-slate-900">
                 {lead.scoreVolume} / {rules.weightVolume}
               </span>
             </div>
             {lead.penalty > 0 && (
-              <div className="px-3 py-2 flex justify-between items-center bg-red-50/70 text-red-800 rounded-b-lg">
+              <div className="px-3.5 py-2.5 flex justify-between items-center bg-red-50/70 text-red-900 font-medium rounded-b-lg">
                 <span>Điểm phạt vi phạm tiêu chí loại trừ</span>
-                <span className="font-mono font-semibold">-{lead.penalty}</span>
+                <span className="font-mono font-bold">-{lead.penalty}</span>
               </div>
             )}
           </div>
         </div>
 
         {/* 2. Extracted Maritime Entities */}
-        <div className="space-y-2 text-xs">
-          <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+        <div className="space-y-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
             2. Thông tin Nghiệp vụ Khai thác
           </span>
-          <div className="grid grid-cols-2 gap-2 bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+          <div className="grid grid-cols-2 gap-2.5 bg-slate-50 p-3.5 rounded-lg border border-slate-200 text-sm">
             <div>
-              <span className="text-slate-400 block text-xs">Mặt hàng vận chuyển:</span>
-              <span className="font-semibold text-slate-800">{lead.cargo}</span>
+              <span className="text-slate-500 block text-xs">Mặt hàng vận chuyển:</span>
+              <span className="font-bold text-slate-900">{lead.cargo}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-xs">Quy mô lô hàng:</span>
-              <span className="font-mono font-semibold text-slate-800">{lead.volume}</span>
+              <span className="text-slate-500 block text-xs">Quy mô lô hàng:</span>
+              <span className="font-mono font-bold text-slate-900">{lead.volume}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-xs">Tuyến vận tải:</span>
-              <span className="font-semibold text-slate-800">{lead.route}</span>
+              <span className="text-slate-500 block text-xs">Tuyến vận tải:</span>
+              <span className="font-bold text-slate-900">{lead.route}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-xs">Phân hệ dịch vụ:</span>
-              <span className="font-semibold text-[#0F3D75]">{lead.service}</span>
+              <span className="text-slate-500 block text-xs">Phân hệ dịch vụ:</span>
+              <span className="font-bold text-[#0F3D75]">{lead.service}</span>
             </div>
-            <div className="col-span-2 pt-1.5 border-t border-slate-200">
-              <span className="text-slate-400 block text-xs">Đội tàu SGCL tương thích:</span>
-              <span className="font-semibold text-slate-900">{lead.vesselFit}</span>
+            <div className="col-span-2 pt-2 border-t border-slate-200">
+              <span className="text-slate-500 block text-xs">Đội tàu SGCL tương thích:</span>
+              <span className="font-bold text-slate-900">{lead.vesselFit}</span>
             </div>
           </div>
         </div>
 
         {/* 3. Reasoning & Rationale */}
-        <div className="space-y-2 text-xs">
-          <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+        <div className="space-y-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
             3. Căn cứ Đánh giá &amp; Thuyết minh Phân hạng
           </span>
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-3.5 space-y-2 text-xs leading-relaxed text-slate-700">
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-2.5 text-sm leading-relaxed text-slate-800">
             {lead.xaiSteps && lead.xaiSteps.length > 0 ? (
               lead.xaiSteps.map((step, idx) => (
                 <p key={idx} dangerouslySetInnerHTML={{ __html: step }} />
@@ -188,16 +188,16 @@ export default function InspectionDrawer({
         </div>
 
         {/* 4. Manual Broker Override & Notes */}
-        <div className="pt-2 border-t border-slate-200 space-y-3 text-xs">
-          <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 block">
+        <div className="pt-2 border-t border-slate-200 space-y-3.5 text-sm">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-700 block">
             4. Thẩm định &amp; Tác vụ của Broker
           </span>
           <div>
-            <label className="block text-slate-600 mb-1">Trạng thái xử lý:</label>
+            <label className="block text-slate-700 font-semibold mb-1 text-xs">Trạng thái xử lý:</label>
             <select
               value={lead.status}
               onChange={e => onUpdateStatus(lead.id, e.target.value as LeadStatus)}
-              className="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-xs font-medium text-slate-800 focus:border-[#0F3D75] focus:outline-none cursor-pointer"
+              className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm font-medium text-slate-800 focus:border-[#0F3D75] focus:outline-none cursor-pointer"
             >
               {statuses.map(st => (
                 <option key={st} value={st}>
@@ -208,11 +208,11 @@ export default function InspectionDrawer({
           </div>
 
           <div>
-            <label className="block text-slate-600 mb-1">Ghi đè phân nhóm (nếu cần):</label>
+            <label className="block text-slate-700 font-semibold mb-1 text-xs">Ghi đè phân nhóm (nếu cần):</label>
             <select
               value={lead.manualGroup || 'AUTO'}
               onChange={e => onOverrideGroup(lead.id, e.target.value as 'AUTO' | LeadGroup)}
-              className="w-full bg-white border border-slate-300 rounded-md px-3 py-1.5 text-xs text-slate-800 focus:border-[#0F3D75] focus:outline-none cursor-pointer"
+              className="w-full bg-white border border-slate-300 rounded-md px-3.5 py-2 text-sm text-slate-800 focus:border-[#0F3D75] focus:outline-none cursor-pointer"
             >
               <option value="AUTO">Theo kết quả chấm điểm tự động</option>
               <option value="A">Ghi đè sang Nhóm A (Mục tiêu cốt lõi)</option>
@@ -222,7 +222,7 @@ export default function InspectionDrawer({
           </div>
 
           <div>
-            <label className="block text-slate-600 mb-1">
+            <label className="block text-slate-700 font-semibold mb-1 text-xs">
               Ghi chú nghiệp vụ (Laycan, cước mục tiêu, liên hệ):
             </label>
             <textarea
@@ -230,24 +230,24 @@ export default function InspectionDrawer({
               value={lead.note || ''}
               onChange={e => onUpdateNote(lead.id, e.target.value)}
               placeholder="Nhập ghi chú thẩm định của Broker..."
-              className="w-full bg-white border border-slate-300 rounded-md p-2.5 text-xs text-slate-800 focus:border-[#0F3D75] focus:outline-none"
+              className="w-full bg-white border border-slate-300 rounded-md p-3 text-sm text-slate-800 focus:border-[#0F3D75] focus:outline-none"
             />
           </div>
         </div>
       </div>
 
-      <div className="p-3 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs">
+      <div className="p-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-sm">
         <button
           type="button"
           onClick={() => onDeleteLead(lead.id)}
-          className="text-red-700 hover:underline text-xs cursor-pointer"
+          className="text-red-700 hover:underline text-sm font-medium cursor-pointer"
         >
           Xóa hồ sơ này
         </button>
         <button
           type="button"
           onClick={onClose}
-          className="px-3.5 py-1.5 bg-[#0F3D75] text-white font-medium text-xs rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
+          className="px-4 py-2 bg-[#0F3D75] text-white font-semibold text-sm rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
         >
           Hoàn tất kiểm tra
         </button>

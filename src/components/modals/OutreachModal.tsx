@@ -84,12 +84,12 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
       className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-50 p-4 animate-fade-in"
     >
       <div className="bg-white border border-slate-300 rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden">
-        <div className="px-5 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
           <div>
-            <h3 id="outreachModalTitle" className="text-sm font-bold text-slate-900">
+            <h3 id="outreachModalTitle" className="text-base font-bold text-slate-900">
               Dự thảo Thư chào tàu &amp; Kịch bản Tiếp cận Khách hàng
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-sm text-slate-500 mt-0.5">
               Tự động trích xuất thông số Mặt hàng &ndash; Tuyến &ndash; Cỡ tàu để tạo bản nháp chào cước chuẩn nghiệp vụ Broker
             </p>
           </div>
@@ -97,35 +97,35 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
             type="button"
             onClick={onClose}
             aria-label="Đóng"
-            className="text-slate-400 hover:text-slate-700 text-lg font-bold px-2 py-1 cursor-pointer rounded"
+            className="text-slate-400 hover:text-slate-700 text-xl font-bold px-2 py-1 cursor-pointer rounded"
           >
             &times;
           </button>
         </div>
 
-        <div className="p-5 space-y-4 text-xs overflow-y-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-3.5 rounded-lg border border-slate-200">
+        <div className="p-5 space-y-4 text-sm overflow-y-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
             <div>
-              <span className="text-slate-400 block text-xs">Khách hàng mục tiêu:</span>
-              <span className="font-bold text-slate-900">{lead.company}</span>
+              <span className="text-slate-500 block text-xs">Khách hàng mục tiêu:</span>
+              <span className="font-bold text-slate-900 text-base">{lead.company}</span>
             </div>
             <div>
-              <span className="text-slate-400 block text-xs">Phân nhóm &amp; Nghiệp vụ:</span>
-              <span className="font-semibold text-[#0F3D75]">
+              <span className="text-slate-500 block text-xs">Phân nhóm &amp; Nghiệp vụ:</span>
+              <span className="font-semibold text-[#0F3D75] text-sm">
                 Nhóm {lead.group} ({lead.score}/100đ) &middot; {lead.service}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 block text-xs">Lô hàng &amp; Tuyến:</span>
-              <span className="font-medium text-slate-800">
+              <span className="text-slate-500 block text-xs">Lô hàng &amp; Tuyến:</span>
+              <span className="font-medium text-slate-800 text-sm">
                 {lead.cargo} ({lead.volume}) &middot; Tuyến: {lead.route}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 block text-xs">
+              <span className="text-slate-500 block text-xs">
                 Phương thức tiếp cận phù hợp:
               </span>
-              <span className="font-medium text-emerald-800">
+              <span className="font-medium text-emerald-800 text-sm">
                 {lead.group === 'A'
                   ? 'Email chào cước chỉ dẫn + Liên hệ điện thoại trực tiếp'
                   : 'Gửi Email Bản tin Thị trường Cước & Lịch tàu định kỳ'}
@@ -133,15 +133,15 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <label htmlFor="outreachLangSelect" className="font-semibold text-slate-700">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <label htmlFor="outreachLangSelect" className="font-semibold text-slate-700 text-sm">
               Ngôn ngữ bản nháp chào hàng (Tonnage / Cargo Offer):
             </label>
             <select
               id="outreachLangSelect"
               value={language}
               onChange={e => setLanguage(e.target.value as 'VI' | 'EN')}
-              className="border border-slate-300 bg-white rounded-md px-3 py-1.5 text-xs font-medium cursor-pointer focus:border-[#0F3D75] focus:outline-none"
+              className="border border-slate-300 bg-white rounded-md px-3 py-2 text-sm font-medium cursor-pointer focus:border-[#0F3D75] focus:outline-none"
             >
               <option value="VI">Tiếng Việt (Chủ hàng / XNK Nội địa)</option>
               <option value="EN">Tiếng Anh Quốc tế (Standard Baltic / BIMCO Style)</option>
@@ -149,7 +149,7 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
           </div>
 
           <div>
-            <label htmlFor="outreachSubject" className="block text-slate-600 mb-1 font-medium">
+            <label htmlFor="outreachSubject" className="block text-slate-700 mb-1 font-medium text-sm">
               Tiêu đề Email (Subject Line):
             </label>
             <input
@@ -157,12 +157,12 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
               type="text"
               readOnly
               value={subject}
-              className="w-full bg-slate-50 border border-slate-300 rounded-md px-3 py-2 font-mono text-xs text-slate-800 focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-300 rounded-md px-3.5 py-2 font-mono text-sm text-slate-800 focus:outline-none"
             />
           </div>
 
           <div>
-            <label htmlFor="outreachBody" className="block text-slate-600 mb-1 font-medium">
+            <label htmlFor="outreachBody" className="block text-slate-700 mb-1 font-medium text-sm">
               Nội dung Email &amp; Câu hỏi khai thác thông số kỹ thuật (Broker có thể chỉnh sửa):
             </label>
             <textarea
@@ -170,27 +170,27 @@ Add: SGCL Building, 20/5 Tan Cang St., HCMC, Vietnam`);
               rows={9}
               value={body}
               onChange={e => setBody(e.target.value)}
-              className="w-full bg-white border border-slate-300 rounded-md p-3 font-mono text-xs text-slate-800 leading-relaxed focus:border-[#0F3D75] focus:outline-none"
+              className="w-full bg-white border border-slate-300 rounded-md p-3.5 font-mono text-sm text-slate-800 leading-relaxed focus:border-[#0F3D75] focus:outline-none"
             />
           </div>
 
-          <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-900 text-xs">
+          <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-lg text-amber-900 text-sm leading-relaxed">
             <strong>Lưu ý nghiệp vụ Broker:</strong> Chuyên viên môi giới cần kiểm tra lại tình trạng tàu trống thực tế (Open Position), giới hạn mớn nước cảng (Draft) và mức cước chỉ dẫn trước khi gửi chính thức cho khách hàng.
           </div>
         </div>
 
-        <div className="px-5 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs">
+        <div className="px-5 py-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-sm">
           <button
             type="button"
             onClick={handleCopy}
-            className="px-3.5 py-1.5 bg-[#0F3D75] text-white font-medium rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
+            className="px-4 py-2 bg-[#0F3D75] text-white font-medium rounded-md hover:bg-[#0A2B54] transition cursor-pointer"
           >
             Sao chép Nội dung Email
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-1.5 border border-slate-300 bg-white text-slate-700 rounded-md hover:bg-slate-50 transition cursor-pointer"
+            className="px-4 py-2 border border-slate-300 bg-white text-slate-700 rounded-md hover:bg-slate-50 transition cursor-pointer font-medium"
           >
             Đóng
           </button>
